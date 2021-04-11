@@ -4,6 +4,11 @@ h1 {
     font-size: 50px;
 }
 
+img {
+    max-width: 100%;
+    position: relative;
+}
+
 p {
     margin: 25px;
     text-align: center;
@@ -16,7 +21,7 @@ button {
     text-align: center;
     font-size: 18px;
     padding:0.45em 1.2em;
-    border: 2px solid #283618;
+    border: 2px solid #FEFAE0;
     margin: auto;
     border-radius:0.12em;
     box-sizing: border-box;
@@ -26,15 +31,19 @@ button {
     color:#FEFAE0;
     text-align:center;
     transition: all 0.2s;
-    background-color: #BC6C25;
+    background-color: #75A5BD;
 }
 
 button:hover {
     color: #FEFAE0;
-    background-color:#DDA15E; 
+    background-color:#A0C1D1; 
     font-weight: 400;   
 }
 
 .Link {
     text-decoration: none;
+    text-shadow: 2px 2px 2px black;
+}
+.Link:hover {
+    
 }

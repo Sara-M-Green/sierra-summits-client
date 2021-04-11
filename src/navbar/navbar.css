@@ -1,0 +1,14 @@
+.navbar {
+    background: #000;
+    margin-top: 0;
+    height: 50px;
+}
+
+.nav-title {
+    font-size: 28px;
+    margin-top: 0;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 10px;
+    color: white;
+}
