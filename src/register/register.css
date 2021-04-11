@@ -1,0 +1,11 @@
+h2 {
+    text-align: center;
+    background: #DDA15E;
+    margin-top: 0;
+}
+
+.register {
+    max-width: 85%;
+    border: 2px solid wheat;
+    margin: 15px auto;
+}
