@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
+import STORE from '../store'
 import './viewPeaks.css'
 
 class ViewPeaks extends Component {
+    state = {
+        store: STORE
+    }
     render() {
         return (
             <div>
@@ -35,9 +39,23 @@ class ViewPeaks extends Component {
 
                     </div>
                 </section>
-                <Thumbnail />    
-                <Thumbnail />    
-                <Thumbnail />    
+                {this.props.store.peaks.map(peak => (
+                    <Thumbnail
+                        key={peak.id}
+                        id={peak.id}
+                        name={peak.name}
+                        mileage={peak.mileage}
+                        class={peak.class}
+                        elevation_gain={peak.elevation_gain}
+                        trailhead={peak.trailhead}
+                        summit={peak.summit}
+                        location={peak.location}
+                        overview={peak.overview}
+                        route={peak.route}
+                        website={peak.website}
+                        image={peak.image}
+                    />
+                ))}   
             </div>
             
         )

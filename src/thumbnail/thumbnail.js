@@ -6,10 +6,10 @@ class Thumbnail extends Component {
     render() {
         return (
             <div className="thumbnail">
-                <Link to="/peaks/smith" className="Link"><h2>Smith Mountain</h2></Link>
-                <p>1.4 Miles</p>
-                <p>Class 2</p>
-                <p>Elevation Gain: 995 ft</p>
+                <Link to={`/peaks/${this.props.id}`} className="Link"><h2>{this.props.name}</h2></Link>
+                <p>{this.props.miles}</p>
+                <p>Class {this.props.class}</p>
+                <p>Elevation Gain: {this.props.elevation_gain} ft</p>
             </div>
             
         )
