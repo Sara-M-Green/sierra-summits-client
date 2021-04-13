@@ -15,10 +15,6 @@ class Register extends Component {
                         comment={comment.comment}
                     />
                 ))}
-
-                {/* <Comments />
-                <Comments />
-                <Comments /> */}
             </div>
         )
     }
