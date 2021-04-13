@@ -31,8 +31,10 @@ class ViewPeaks extends Component {
                         
                         <label htmlFor="class5">5</label>
                         <input type="checkbox" id="class5" name="class5" value="5" />
-                        
-
+                    </div>
+                    <div>
+                        <label htmlFor="search">Search for peak by name:</label>
+                        <input type="text" id="search"></input>
                     </div>
                 </section>
                 {this.props.store.peaks.map(peak => (
