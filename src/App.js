@@ -31,7 +31,12 @@ class App extends Component {
               <Peak {...props} store={this.state.store} />
             )}
           />
-          <Route  path='/peaks/:id/comment' component={AddComment} />
+          <Route  
+            path='/peaks/:id/comment'
+            render={(props) => (
+              <AddComment {...props} store={this.state.store} />
+            )}
+          />
         </header>
       </div>
     )    

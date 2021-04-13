@@ -63,6 +63,12 @@ const STORE = {
             name: "Chance",
             comment: 'Snow is clear all the way to the summit.'
         },
+        {
+            id: 4,
+            date: '04/11/21',
+            name: "Claire",
+            comment: 'Summit salami never tasted better'
+        },
     ]
 }
 

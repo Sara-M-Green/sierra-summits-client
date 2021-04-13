@@ -7,9 +7,18 @@ class Register extends Component {
         return (
             <div className="register">
                 <h2>SUMMIT REGISTER</h2>
+                {this.props.store.comments.map(comment => (
+                    <Comments 
+                        key={comment.id}
+                        date={comment.date}
+                        name={comment.name}
+                        comment={comment.comment}
+                    />
+                ))}
+
+                {/* <Comments />
                 <Comments />
-                <Comments />
-                <Comments />
+                <Comments /> */}
             </div>
         )
     }

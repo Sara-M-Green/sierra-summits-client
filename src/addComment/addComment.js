@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import './addComment.css'
 
 class AddComment extends Component {
+    
     render() {
+        const ID = (this.props.match.params.id)
+
         return (
             <div className="addComment">
                 <form>
-                    <h3>Sign Smith Mountain Summit Register</h3>
+                    <h3>Sign {this.props.store.peaks[ID-1].name} Summit Register</h3>
                     <label htmlFor="name" className="formElement">Name: </label>
                     <input 
                         type="text"
@@ -26,8 +29,10 @@ class AddComment extends Component {
                     <input type="submit" className="formElement" />
                 </form>
 
+                
+
                 <div className="peakLinks">
-                    <Link to="/peaks/smith" className="peakLinks">Back</Link>
+                    <Link to={`/peaks/${ID}`}className="peakLinks">Back</Link>
                 </div>
             </div>
         )
@@ -35,3 +40,4 @@ class AddComment extends Component {
 }
 
 export default AddComment
+

@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
-import STORE from '../store'
 import './viewPeaks.css'
 
 class ViewPeaks extends Component {
-    state = {
-        store: STORE
-    }
     render() {
         return (
             <div>

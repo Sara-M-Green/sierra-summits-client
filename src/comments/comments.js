@@ -5,9 +5,9 @@ class Comments extends Component {
     render() {
         return (
             <div className="comment">
-                <p className="comment-info">04/01/2021</p>
-                <p className="comment-info">Ben</p>
-                <p className="comment-info">Beautiful hike! Trail is snow free all the way to the summit.</p>
+                <p className="comment-info">{this.props.date}</p>
+                <p className="comment-info">{this.props.name}</p>
+                <p className="comment-info">{this.props.comment}</p>
             </div>
         )
     }
