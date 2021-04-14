@@ -18,7 +18,7 @@ class App extends Component {
         <header className="App-header">
           <Navbar />
           <Route 
-            exact path='/peaks' 
+            exact path='/api/peaks' 
             render={(props) => (
               <ViewPeaks {...props} store={this.state.store} />
             )}
@@ -26,13 +26,13 @@ class App extends Component {
           
           <Route exact path='/' component={Homepage} />
           <Route 
-            exact path='/peaks/:id'
+            exact path='/api/peaks/:id'
             render={(props) => (
               <Peak {...props} store={this.state.store} />
             )}
           />
           <Route  
-            path='/peaks/:id/comment'
+            path='api/peaks/:id/comment'
             render={(props) => (
               <AddComment {...props} store={this.state.store} />
             )}

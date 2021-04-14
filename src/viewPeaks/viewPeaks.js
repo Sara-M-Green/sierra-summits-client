@@ -3,7 +3,74 @@ import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
 
 class ViewPeaks extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            peaks: [],
+            search: '',
+            sort: '',
+            error: null
+        }
+    }
+
+    setSearch(search) {
+        this.setState({
+            search
+        })
+    }
+
+    setSort(sort) {
+        this.setState({
+            sort
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+
+        const baseUrl = 'http://localhost:8000/api/peaks'
+        const params = []
+        if (this.state.search) {
+            params.push(`search=${this.state.search}`)
+        }
+        if (this.state.sort) {
+            params.push(`sort=${this.state.sort}`);
+        }
+
+        const query = params.join('&')
+        const url = `${baseUrl}?${query}`
+
+        fetch(url)
+            .then(res => {
+                if(!res.ok) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(data => {
+                this.setState({
+                    peaks: data,
+                    error: null
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    error: 'Sorry, could not find any peaks at this time'
+                })
+            })
+    }
+    
     render() {
+        const peaks = this.state.peaks.map((peak, i) => {
+            return <Thumbnail 
+                {...peak} 
+                key={i} 
+                name={peak.peakName}
+                id={peak.id}
+                class={peak.class}
+                elevation_gain={peak.gain}
+                 />
+        })
         return (
             <div>
                 <h1>SPS Peak List</h1>
@@ -33,11 +100,34 @@ class ViewPeaks extends Component {
                         <input type="checkbox" id="class5" name="class5" value="5" />
                     </div>
                     <div>
-                        <label htmlFor="search">Search for peak by name:</label>
-                        <input type="text" id="search"></input>
+                        <form onSubmit={e => this.handleSubmit(e)}>
+                            <label htmlFor="search">Search for peak by name:</label>
+                            <input 
+                                type="text" 
+                                id="search" 
+                                name="search"
+                                value={this.state.search}
+                                onChange={e => this.setSearch(e.target.value)}
+                            /> 
+                            <input type="submit" />  
+                        </form> 
                     </div>
+                    <div>
+                        <label htmlFor="sort">Sort:</label>
+                        <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
+                        <option value="">None</option>
+                        <option value="Peak Name">Name</option>
+                        <option value="Mileage">Mileage</option>
+                        <option value="Gain">Elevation Gain</option>
+                        </select>
+                    </div>
+
+                    <div className="App_error">{ this.state.error }</div>
                 </section>
-                {this.props.store.peaks.map(peak => (
+
+                {peaks}
+                
+                {/* {this.props.store.peaks.map(peak => (
                     <Thumbnail
                         key={peak.id}
                         id={peak.id}
@@ -53,7 +143,7 @@ class ViewPeaks extends Component {
                         website={peak.website}
                         image={peak.image}
                     />
-                ))}   
+                ))}    */}
             </div>
             
         )
