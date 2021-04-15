@@ -7,7 +7,7 @@ class Navbar extends Component {
     render() {
         return (
             <div className="navbar">
-                <Link to="/">
+                <Link to="/api">
                     <h1 className="nav-title">Sierra Summits</h1>
                 </Link>
                 

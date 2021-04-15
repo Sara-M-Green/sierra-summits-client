@@ -5,12 +5,49 @@ import ViewPeaks from './viewPeaks/viewPeaks'
 import Peak from './peak/peak'
 import AddComment from './addComment/addComment'
 import Navbar from './navbar/navbar'
-import STORE from './store'
 
 class App extends Component {
   state = {
-      store: STORE
+      store: []
   }
+
+  componentDidMount() {
+    const baseUrl = 'http://localhost:8000/api/peaks'
+    const params = []
+    if (this.state.search) {
+        params.push(`search=${this.state.search}`)
+    }
+    if (this.state.sort) {
+        params.push(`sort=${this.state.sort}`);
+    }
+
+    const query = params.join('&')
+    const url = `${baseUrl}?${query}`
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+        .then(res => {
+            if(!res.ok) {
+                throw new Error(res.statusText)
+            }
+            return res.json()
+        })
+        .then(data => {
+            this.setState({
+                store: data,
+                error: null
+            })
+        })
+        .catch(err => {
+            this.setState({
+                error: 'Sorry, could not find any peaks at this time'
+            })
+        })
+}
 
   render() {
     return (
@@ -24,7 +61,7 @@ class App extends Component {
             )}
           />
           
-          <Route exact path='/' component={Homepage} />
+          <Route exact path='/api' component={Homepage} />
           <Route 
             exact path='/api/peaks/:id'
             render={(props) => (
@@ -32,7 +69,7 @@ class App extends Component {
             )}
           />
           <Route  
-            path='api/peaks/:id/comment'
+            path='/api/peaks/:id/comment'
             render={(props) => (
               <AddComment {...props} store={this.state.store} />
             )}

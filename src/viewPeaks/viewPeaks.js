@@ -13,6 +13,13 @@ class ViewPeaks extends Component {
         }
     }
 
+    componentDidMount() {
+        this.setState({
+            peaks: this.props.store
+        })
+    }
+
+    
     setSearch(search) {
         this.setState({
             search
@@ -66,16 +73,17 @@ class ViewPeaks extends Component {
                 {...peak} 
                 key={i} 
                 name={peak.peakName}
+                miles={peak.mileage}
                 id={peak.id}
                 class={peak.class}
                 elevation_gain={peak.gain}
-                 />
+            />
         })
         return (
             <div>
                 <h1>SPS Peak List</h1>
                 <section className="slidecontainer">
-                    <div >
+                    <div>
                         <label>Filter By Max Mileage</label>
                         <input type="range" min="1" max="100" className="slider" id="myRange" />
                     </div>
@@ -116,9 +124,9 @@ class ViewPeaks extends Component {
                         <label htmlFor="sort">Sort:</label>
                         <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
                         <option value="">None</option>
-                        <option value="Peak Name">Name</option>
-                        <option value="Mileage">Mileage</option>
-                        <option value="Gain">Elevation Gain</option>
+                        <option value="peakName">Name</option>
+                        <option value="mileage">Mileage</option>
+                        <option value="gain">Elevation Gain</option>
                         </select>
                     </div>
 

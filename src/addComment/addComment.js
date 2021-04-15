@@ -5,12 +5,13 @@ import './addComment.css'
 class AddComment extends Component {
     
     render() {
-        const ID = (this.props.match.params.id)
+        const ID = (this.props.match.params.id - 1)
+        console.log(ID)
 
         return (
             <div className="addComment">
                 <form>
-                    <h3>Sign {this.props.store.peaks[ID-1].name} Summit Register</h3>
+                    <h3>Sign {this.props.store[ID].peakname} Summit Register</h3>
                     <label htmlFor="name" className="formElement">Name: </label>
                     <input 
                         type="text"
@@ -32,7 +33,7 @@ class AddComment extends Component {
                 
 
                 <div className="peakLinks">
-                    <Link to={`/peaks/${ID}`}className="peakLinks">Back</Link>
+                    <Link to={`/api/peaks/${ID + 1}`}className="peakLinks">Back</Link>
                 </div>
             </div>
         )
