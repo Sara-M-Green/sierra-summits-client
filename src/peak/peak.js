@@ -4,6 +4,44 @@ import Register from '../register/register'
 import './peak.css'
 
 class Peak extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            comments: [],
+            error: null
+        }
+    }
+
+    componentDidMount() {
+        const baseUrl = 'http://localhost:8000/api/comments'
+        const peakId = (this.props.match.params.id)
+
+        const url = `${baseUrl}/${peakId}`
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(data => {
+                this.setState({
+                    comments: data,
+                    error: null
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    error: `Sorry, there's been an error retrieving comments. Try again later.`
+                })
+            })
+    }
+
     render() {
         const ID = (this.props.match.params.id - 1)
 
@@ -13,7 +51,7 @@ class Peak extends Component {
                 <div className="peakLinks">
                     <Link to="/api/peaks" className="peakLinks">Back</Link>
                 </div>
-                <img src={this.props.store[ID].image} />
+                <img src={this.props.store[ID].image} alt="peak" />
                 <p>Elevation: {this.props.store[ID].summit} ft</p>
                 <p>{this.props.store[ID].latLong}</p>
                 <p>Trailhead: {this.props.store[ID].trailHead}</p>
@@ -22,7 +60,7 @@ class Peak extends Component {
                 <div className="peakLinks">
                     <Link to={`${this.props.match.params.id}/comment`} className="peakLinks" >Sign Summit Register</Link>
                 </div>
-                <Register store={this.props.store}/>
+                <Register store={this.props.store} comments={this.state.comments}/>
             </div>
         )
     }
