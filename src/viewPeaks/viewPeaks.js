@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
+import Checkbox from '../checkbox/checkbox'
+
 
 class ViewPeaks extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            peaks: [],
+            peaks: this.props.store,
             search: '',
             sort: '',
+            classes: [
+                {id: 1, value: 1, isChecked: false},
+                {id: 2, value: 2, isChecked: false},
+                {id: 3, value: 3, isChecked: false},
+                {id: 4, value: 4, isChecked: false},
+                {id: 5, value: 5, isChecked: false},
+            ],
             error: null
         }
     }
+
 
     componentDidMount() {
         this.setState({
@@ -26,10 +36,58 @@ class ViewPeaks extends Component {
         })
     }
 
-    setSort(sort) {
+    setSort = (sort) => {
         this.setState({
-            sort
+            sort: sort
+        }, () => {
+            this.handleSort()
         })
+    }
+
+    handleSort() {
+        let sort = this.state.sort
+        if (sort) {
+            if(!['peakname', 'gain', 'mileage' ].includes(sort)) {
+               this.setState({
+                   error: 'Must sort by Peak Name, Elevation Gain or Mileage'
+               })
+            }
+        }
+
+        if (sort) {
+            let peakResults = this.state.peaks
+            if (sort !== 'gain' || sort !== 'mileage') {
+                peakResults.sort((a, b) => {
+                    return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0
+                })    
+            } else {
+                peakResults.sort((a, b) => {
+                    // return parseInt(a[sort]) > parseInt(b[sort]) ? 1 : parseInt(a[sort]) < parseInt(b[sort]) ? -1 : 0
+                    return parseInt(a[sort]) - parseInt(b[sort])
+                })    
+            } 
+            this.setState({
+                peaks: peakResults
+            })            
+        }
+
+        
+    }
+
+    handleClassSelects(e) {
+        console.log(e.target.value)
+        console.log(e.target.checked)
+        // let classes = this.state.classes
+
+        // classes.forEach(box => box.isChecked = e.target.checked)
+
+        // this.setState({
+        //     classes: classes
+        // })
+        // this.state.class.push(e.target.value)
+        // this.setState({
+        //     checked: e.target.checked
+        // })
     }
 
     handleSubmit(e) {
@@ -40,9 +98,9 @@ class ViewPeaks extends Component {
         if (this.state.search) {
             params.push(`search=${this.state.search}`)
         }
-        if (this.state.sort) {
-            params.push(`sort=${this.state.sort}`);
-        }
+        // if (this.state.sort) {
+        //     params.push(`sort=${this.state.sort}`);
+        // }
 
         const query = params.join('&')
         const url = `${baseUrl}?${query}`
@@ -66,6 +124,8 @@ class ViewPeaks extends Component {
                 })
             })
     }
+
+
     
     render() {
         const peaks = this.state.peaks.map((peak, i) => {
@@ -79,6 +139,18 @@ class ViewPeaks extends Component {
                 elevation_gain={peak.gain}
             />
         })
+        const checkboxes = this.state.classes.map((box, i) => {
+            return <Checkbox
+                {...box} 
+                key={i}
+                id={box.id} 
+                value={box.value} 
+                isChecked={box.isChecked}
+                handleClick={this.handleClassSelects}
+            />
+        })
+
+        
         return (
             <div>
                 <h1>SPS Peak List</h1>
@@ -92,20 +164,7 @@ class ViewPeaks extends Component {
                         <input type="range" min="1" max="100" className="slider" id="myRange" />
                     </div>
                     <div>
-                        <label htmlFor="class1">Class: 1</label>
-                        <input type="checkbox" id="class1" name="class1" value="1" />
-                        
-                        <label htmlFor="class2">2</label>
-                        <input type="checkbox" id="class2" name="class2" value="2" />
-                        
-                        <label htmlFor="class3">3</label>
-                        <input type="checkbox" id="class3" name="class3" value="3" />
-                        
-                        <label htmlFor="class4">4</label>
-                        <input type="checkbox" id="class4" name="class4" value="4" />
-                        
-                        <label htmlFor="class5">5</label>
-                        <input type="checkbox" id="class5" name="class5" value="5" />
+                        {checkboxes}
                     </div>
                     <div>
                         <form onSubmit={e => this.handleSubmit(e)}>
@@ -117,14 +176,26 @@ class ViewPeaks extends Component {
                                 value={this.state.search}
                                 onChange={e => this.setSearch(e.target.value)}
                             /> 
+
+                            {/* <SearchField
+                                placeholder="Search..."
+                                // onChange={onChange}
+                                searchText="This is initial search text"
+                                classNames="test-class"
+                                id="searchbar"
+                            /> */}
+
                             <input type="submit" />  
                         </form> 
+                    </div>
+                    <div>
+                    
                     </div>
                     <div>
                         <label htmlFor="sort">Sort:</label>
                         <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
                         <option value="">None</option>
-                        <option value="peakName">Name</option>
+                        <option value="peakname">Name</option>
                         <option value="mileage">Mileage</option>
                         <option value="gain">Elevation Gain</option>
                         </select>
@@ -135,23 +206,6 @@ class ViewPeaks extends Component {
 
                 {peaks}
                 
-                {/* {this.props.store.peaks.map(peak => (
-                    <Thumbnail
-                        key={peak.id}
-                        id={peak.id}
-                        name={peak.name}
-                        mileage={peak.mileage}
-                        class={peak.class}
-                        elevation_gain={peak.elevation_gain}
-                        trailhead={peak.trailhead}
-                        summit={peak.summit}
-                        location={peak.location}
-                        overview={peak.overview}
-                        route={peak.route}
-                        website={peak.website}
-                        image={peak.image}
-                    />
-                ))}    */}
             </div>
             
         )
