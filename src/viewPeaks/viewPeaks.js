@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
 import Checkbox from '../checkbox/checkbox'
+import config from '../config'
 
+let peaksClasses = []
 
 class ViewPeaks extends Component {
     constructor(props) {
@@ -18,16 +20,17 @@ class ViewPeaks extends Component {
                 {id: 4, value: 4, isChecked: false},
                 {id: 5, value: 5, isChecked: false},
             ],
-            error: null
+            error: null,
+            filterablePeaks: [],
         }
     }
 
 
-    componentDidMount() {
-        this.setState({
-            peaks: this.props.store
-        })
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         peaks: this.props.store
+    //     })
+    // }
 
     
     setSearch(search) {
@@ -74,33 +77,69 @@ class ViewPeaks extends Component {
         
     }
 
-    handleClassSelects(e) {
-        console.log(e.target.value)
-        console.log(e.target.checked)
-        // let classes = this.state.classes
+    // handleClassSelects = (e) => {
+    //     let classes = this.state.classes
 
-        // classes.forEach(box => box.isChecked = e.target.checked)
+    //     classes.forEach(classItem => {
+    //         if (classItem.value == e.target.value)
+    //             classItem.isChecked = e.target.checked
+    //     })
 
-        // this.setState({
-        //     classes: classes
-        // })
-        // this.state.class.push(e.target.value)
-        // this.setState({
-        //     checked: e.target.checked
-        // })
+    //     this.setState({classes: classes})
+    // }
+
+
+    handleClassSelects = (e) => {
+        fetch(`${config.API_ENDPOINT}/peaks`)
+            .then(res => {
+                if(!res.ok) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(data => {
+                this.setState({
+                    filterablePeaks: data
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    error: 'Sorry, something went wrong. Please try again later.'
+                })
+            })
+        
+        if (e.target.checked === true) {
+            let checkedPeaks = this.state.filterablePeaks.filter(peak => 
+                peak.class[0]
+                    .includes(e.target.value.toString())
+            )
+            checkedPeaks.forEach(peak => peaksClasses.push(peak))
+            console.log(peaksClasses)
+            this.setState({
+                peaks: peaksClasses
+            })
+        }
+        if (e.target.checked === false) {
+            let uncheckedPeaks = peaksClasses.filter(peak => 
+                peak.class[0]
+                    .includes(e.target.value.toString())
+            )
+            uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
+            console.log(peaksClasses)
+            this.setState({
+                peaks: peaksClasses
+            })
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault()
 
-        const baseUrl = 'http://localhost:8000/api/peaks'
+        const baseUrl = `${config.API_ENDPOINT}/peaks`
         const params = []
         if (this.state.search) {
             params.push(`search=${this.state.search}`)
         }
-        // if (this.state.sort) {
-        //     params.push(`sort=${this.state.sort}`);
-        // }
 
         const query = params.join('&')
         const url = `${baseUrl}?${query}`
@@ -141,7 +180,8 @@ class ViewPeaks extends Component {
         })
         const checkboxes = this.state.classes.map((box, i) => {
             return <Checkbox
-                {...box} 
+                {...box}
+                peaks={this.state.peaks} 
                 key={i}
                 id={box.id} 
                 value={box.value} 
@@ -176,14 +216,6 @@ class ViewPeaks extends Component {
                                 value={this.state.search}
                                 onChange={e => this.setSearch(e.target.value)}
                             /> 
-
-                            {/* <SearchField
-                                placeholder="Search..."
-                                // onChange={onChange}
-                                searchText="This is initial search text"
-                                classNames="test-class"
-                                id="searchbar"
-                            /> */}
 
                             <input type="submit" />  
                         </form> 

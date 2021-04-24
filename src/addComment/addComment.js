@@ -28,7 +28,7 @@ class AddComment extends Component {
             peak_id: ID
         }
 
-        fetch(`${config.API_ENDPOINT}/${ID}`, {
+        fetch(`${config.API_ENDPOINT}/comments/${ID}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

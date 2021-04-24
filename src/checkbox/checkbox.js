@@ -5,7 +5,7 @@ class Checkbox extends Component {
         return (
             <div>
                 <label htmlFor="class1">Class: {this.props.value}</label>
-                <input type="checkbox" value={this.props.value} checked={this.props.checked} onClick={e => this.props.handleClick(e)}/>
+                <input id={this.props.id} type="checkbox" value={this.props.value} checked={this.props.checked} onClick={e => this.props.handleClick(e)}/>
             </div>
         )
     }
