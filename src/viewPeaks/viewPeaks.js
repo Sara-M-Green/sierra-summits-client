@@ -6,7 +6,7 @@ import config from '../config'
 
 let peaksClasses = []
 
-class ViewPeaks extends Component {
+class ViewPeaks extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,7 +21,7 @@ class ViewPeaks extends Component {
                 {id: 5, value: 5, isChecked: false},
             ],
             error: null,
-            filterablePeaks: [],
+            filterablePeaks: this.props.store,
         }
     }
 
@@ -33,7 +33,7 @@ class ViewPeaks extends Component {
     // }
 
     
-    setSearch(search) {
+    setSearch = (search) => {
         this.setState({
             search
         })
@@ -47,7 +47,7 @@ class ViewPeaks extends Component {
         })
     }
 
-    handleSort() {
+    handleSort = () => {
         let sort = this.state.sort
         if (sort) {
             if(!['peakname', 'gain', 'mileage' ].includes(sort)) {
@@ -66,9 +66,11 @@ class ViewPeaks extends Component {
             } else {
                 peakResults.sort((a, b) => {
                     // return parseInt(a[sort]) > parseInt(b[sort]) ? 1 : parseInt(a[sort]) < parseInt(b[sort]) ? -1 : 0
+                    console.log(parseInt(a[sort]))
                     return parseInt(a[sort]) - parseInt(b[sort])
                 })    
             } 
+            console.log(peakResults)
             this.setState({
                 peaks: peakResults
             })            
@@ -77,59 +79,68 @@ class ViewPeaks extends Component {
         
     }
 
-    // handleClassSelects = (e) => {
-    //     let classes = this.state.classes
-
-    //     classes.forEach(classItem => {
-    //         if (classItem.value == e.target.value)
-    //             classItem.isChecked = e.target.checked
-    //     })
-
-    //     this.setState({classes: classes})
-    // }
-
 
     handleClassSelects = (e) => {
-        fetch(`${config.API_ENDPOINT}/peaks`)
-            .then(res => {
-                if(!res.ok) {
-                    throw new Error(res.statusText)
+        // fetch(`${config.API_ENDPOINT}/peaks`)
+        //     .then(res => {
+        //         if(!res.ok) {
+        //             throw new Error(res.statusText)
+        //         }
+        //         return res.json()
+        //     })
+        //     .then(data => {
+        //         this.setState({
+        //             filterablePeaks: data
+        //         })
+        //     })
+        //     .catch(err => {
+        //         this.setState({
+        //             error: 'Sorry, something went wrong. Please try again later.'
+        //         })
+        //     })
+
+        this.setState({
+            filterablePeaks: this.props.store
+        }, () => {
+
+            let classes = this.state.classes
+
+            classes.forEach(classItem => {
+                if (classItem.value == e.target.value)
+                    classItem.isChecked = e.target.checked
+            })
+
+            this.setState({classes: classes}, () => {
+
+                const selectedClass = this.state.classes.find(c => c.value == e.target.value)
+                console.log(selectedClass)
+
+                if (selectedClass.isChecked === true) {
+                    let checkedPeaks = this.state.filterablePeaks.filter(peak => 
+                        peak.class[0]
+                            .includes(e.target.value.toString())
+                    )
+                    checkedPeaks.forEach(peak => peaksClasses.push(peak))
+                    console.log(peaksClasses)
+
+                    this.setState({
+                        peaks: peaksClasses
+                    })
                 }
-                return res.json()
+                if (selectedClass.isChecked === false) {
+                    let uncheckedPeaks = peaksClasses.filter(peak => 
+                        peak.class[0]
+                            .includes(e.target.value.toString())
+                    )
+                    uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
+                    console.log(peaksClasses)
+
+                    this.setState({
+                        peaks: peaksClasses
+                    })
+                }
             })
-            .then(data => {
-                this.setState({
-                    filterablePeaks: data
-                })
-            })
-            .catch(err => {
-                this.setState({
-                    error: 'Sorry, something went wrong. Please try again later.'
-                })
-            })
-        
-        if (e.target.checked === true) {
-            let checkedPeaks = this.state.filterablePeaks.filter(peak => 
-                peak.class[0]
-                    .includes(e.target.value.toString())
-            )
-            checkedPeaks.forEach(peak => peaksClasses.push(peak))
-            console.log(peaksClasses)
-            this.setState({
-                peaks: peaksClasses
-            })
-        }
-        if (e.target.checked === false) {
-            let uncheckedPeaks = peaksClasses.filter(peak => 
-                peak.class[0]
-                    .includes(e.target.value.toString())
-            )
-            uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
-            console.log(peaksClasses)
-            this.setState({
-                peaks: peaksClasses
-            })
-        }
+        })
     }
 
     handleSubmit(e) {
@@ -167,6 +178,7 @@ class ViewPeaks extends Component {
 
     
     render() {
+
         const peaks = this.state.peaks.map((peak, i) => {
             return <Thumbnail 
                 {...peak} 
@@ -197,11 +209,11 @@ class ViewPeaks extends Component {
                 <section className="slidecontainer">
                     <div>
                         <label>Filter By Max Mileage</label>
-                        <input type="range" min="1" max="100" className="slider" id="myRange" />
+                        <input type="range" min="0" max="6" step="0.2" className="slider" id="myRange" />
                     </div>
                     <div>
                         <label>Filter By Max Elevation Gain</label>
-                        <input type="range" min="1" max="100" className="slider" id="myRange" />
+                        <input type="range" min="1000" max="8000" step="100" className="slider" id="myRange" />
                     </div>
                     <div>
                         {checkboxes}
