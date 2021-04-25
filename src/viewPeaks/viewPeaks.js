@@ -4,7 +4,7 @@ import './viewPeaks.css'
 import Checkbox from '../checkbox/checkbox'
 import config from '../config'
 
-let peaksClasses = []
+// let peaksClasses = []
 
 class ViewPeaks extends React.Component {
     constructor(props) {
@@ -80,24 +80,55 @@ class ViewPeaks extends React.Component {
     }
 
 
+    // handleClassSelects = (e) => {
+
+    //     this.setState({
+    //         filterablePeaks: this.props.store
+    //     }, () => {
+
+    //         let classes = this.state.classes
+
+    //         classes.forEach(classItem => {
+    //             if (classItem.value === parseInt(e.target.value))
+    //                 classItem.isChecked = e.target.checked
+    //         })
+
+    //         this.setState({classes: classes}, () => {
+
+    //             const selectedClass = this.state.classes.find(c => c.value == e.target.value)
+    //             console.log(selectedClass)
+
+    //             if (selectedClass.isChecked === true) {
+    //                 let checkedPeaks = this.state.filterablePeaks.filter(peak => 
+    //                     peak.class[0]
+    //                         .includes(e.target.value.toString())
+    //                 )
+    //                 checkedPeaks.forEach(peak => peaksClasses.push(peak))
+    //                 console.log(peaksClasses)
+
+    //                 this.setState({
+    //                     peaks: peaksClasses
+    //                 })
+    //             }
+    //             if (selectedClass.isChecked === false) {
+    //                 let uncheckedPeaks = peaksClasses.filter(peak => 
+    //                     peak.class[0]
+    //                         .includes(e.target.value.toString())
+    //                 )
+    //                 uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
+    //                 console.log(peaksClasses)
+
+    //                 this.setState({
+    //                     peaks: peaksClasses
+    //                 })
+    //             }
+    //         })
+    //     })
+    // }
+
+
     handleClassSelects = (e) => {
-        // fetch(`${config.API_ENDPOINT}/peaks`)
-        //     .then(res => {
-        //         if(!res.ok) {
-        //             throw new Error(res.statusText)
-        //         }
-        //         return res.json()
-        //     })
-        //     .then(data => {
-        //         this.setState({
-        //             filterablePeaks: data
-        //         })
-        //     })
-        //     .catch(err => {
-        //         this.setState({
-        //             error: 'Sorry, something went wrong. Please try again later.'
-        //         })
-        //     })
+        let peaksClasses = []
 
         this.setState({
             filterablePeaks: this.props.store
@@ -106,39 +137,24 @@ class ViewPeaks extends React.Component {
             let classes = this.state.classes
 
             classes.forEach(classItem => {
-                if (classItem.value == e.target.value)
+                if (classItem.value === parseInt(e.target.value))
                     classItem.isChecked = e.target.checked
             })
 
             this.setState({classes: classes}, () => {
 
-                const selectedClass = this.state.classes.find(c => c.value == e.target.value)
-                console.log(selectedClass)
-
-                if (selectedClass.isChecked === true) {
-                    let checkedPeaks = this.state.filterablePeaks.filter(peak => 
-                        peak.class[0]
-                            .includes(e.target.value.toString())
-                    )
-                    checkedPeaks.forEach(peak => peaksClasses.push(peak))
-                    console.log(peaksClasses)
-
+                this.state.classes.forEach(c => {
+                    if (c.isChecked === true) {
+                        let checkedPeaks = this.state.filterablePeaks.filter(p =>
+                            p.class[0].includes(c.value.toString())
+                        )
+                        
+                        checkedPeaks.forEach(peak => peaksClasses.push(peak))
+                    }
                     this.setState({
                         peaks: peaksClasses
                     })
-                }
-                if (selectedClass.isChecked === false) {
-                    let uncheckedPeaks = peaksClasses.filter(peak => 
-                        peak.class[0]
-                            .includes(e.target.value.toString())
-                    )
-                    uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
-                    console.log(peaksClasses)
-
-                    this.setState({
-                        peaks: peaksClasses
-                    })
-                }
+                })
             })
         })
     }
