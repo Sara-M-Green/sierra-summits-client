@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
 import Checkbox from '../checkbox/checkbox'
@@ -20,10 +20,14 @@ class ViewPeaks extends React.Component {
                 {id: 4, value: 4, isChecked: false},
                 {id: 5, value: 5, isChecked: false},
             ],
+            mileage: 0,
+            gain: 0,
             error: null,
             filterablePeaks: this.props.store,
         }
     }
+
+    
 
 
     // componentDidMount() {
@@ -70,7 +74,7 @@ class ViewPeaks extends React.Component {
                     return parseInt(a[sort]) - parseInt(b[sort])
                 })    
             } 
-            console.log(peakResults)
+
             this.setState({
                 peaks: peakResults
             })            
@@ -191,6 +195,77 @@ class ViewPeaks extends React.Component {
             })
     }
 
+    filterMileage = (e) => {
+        let peaksMileage = []
+
+        this.setState({
+            mileage: e.target.value
+        }, () => {
+            this.setState({
+                filterablePeaks: this.props.store
+            }, () => {
+
+                this.state.filterablePeaks.forEach(p => {
+                    if (p.mileage <= this.state.mileage) {
+                        peaksMileage.push(p)
+                    }
+                })
+
+                this.setState({
+                    peaks: peaksMileage
+                })
+
+            })
+        })
+    }
+
+    filterGain = (e) => {
+        let peaksGain = []
+
+        this.setState({
+            gain: e.target.value
+        }, () => {
+            this.setState({
+                filterablePeaks: this.props.store
+            }, () => {
+
+                this.state.filterablePeaks.forEach(p => {
+                    if (p.gain <= this.state.gain) {
+                        peaksGain.push(p)
+                    }
+                })
+
+                this.setState({
+                    peaks: peaksGain
+                })
+
+            })
+        })
+    }
+
+    // handleSliders = (e, name) => {
+    //     let peakSlider = []
+
+    //     this.setState({
+    //         [name]: e.target.value
+    //     }, () => {
+    //         this.setState({
+    //             filterablePeaks: this.props.store
+    //         }, () => {
+
+    //             this.state.filterablePeaks.forEach(p => {
+    //                 if(p[name] <= this.state.[name]) {
+    //                     peakSlider.push(p)
+    //                 }
+    //             })
+
+    //             this.setState({
+    //                 peaks: peakSlider
+    //             })
+    //         })
+    //     })
+    // }
+
 
     
     render() {
@@ -225,11 +300,13 @@ class ViewPeaks extends React.Component {
                 <section className="slidecontainer">
                     <div>
                         <label>Filter By Max Mileage</label>
-                        <input type="range" min="0" max="6" step="0.2" className="slider" id="myRange" />
+                        <input type="range" name="mileage" value={this.state.mileage} onChange = {e => this.filterMileage(e)} min="0" max="30" step="1" className="slider" id="myRange" />
+                        {this.state.mileage}
                     </div>
                     <div>
                         <label>Filter By Max Elevation Gain</label>
-                        <input type="range" min="1000" max="8000" step="100" className="slider" id="myRange" />
+                        <input type="range" name="gain" value={this.state.gain} onChange = {e => this.filterGain(e)} min="1000" max="8000" step="1000" className="slider" id="myRange" />
+                        {this.state.gain}
                     </div>
                     <div>
                         {checkboxes}
