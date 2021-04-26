@@ -130,6 +130,38 @@ class ViewPeaks extends React.Component {
     //     })
     // }
 
+    handleSubmit(e) {
+        e.preventDefault()
+
+        const baseUrl = `${config.API_ENDPOINT}/peaks`
+        const params = []
+        if (this.state.search) {
+            params.push(`search=${this.state.search}`)
+        }
+
+        const query = params.join('&')
+        const url = `${baseUrl}?${query}`
+
+        fetch(url)
+            .then(res => {
+                if(!res.ok) {
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(data => {
+                this.setState({
+                    peaks: data,
+                    error: null
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    error: 'Sorry, could not find any peaks at this time'
+                })
+            })
+    }
+
 
     handleClassSelects = (e) => {
         let peaksClasses = []
@@ -163,38 +195,6 @@ class ViewPeaks extends React.Component {
         })
     }
 
-    handleSubmit(e) {
-        e.preventDefault()
-
-        const baseUrl = `${config.API_ENDPOINT}/peaks`
-        const params = []
-        if (this.state.search) {
-            params.push(`search=${this.state.search}`)
-        }
-
-        const query = params.join('&')
-        const url = `${baseUrl}?${query}`
-
-        fetch(url)
-            .then(res => {
-                if(!res.ok) {
-                    throw new Error(res.statusText)
-                }
-                return res.json()
-            })
-            .then(data => {
-                this.setState({
-                    peaks: data,
-                    error: null
-                })
-            })
-            .catch(err => {
-                this.setState({
-                    error: 'Sorry, could not find any peaks at this time'
-                })
-            })
-    }
-
     filterMileage = (e) => {
         let peaksMileage = []
 
@@ -205,16 +205,29 @@ class ViewPeaks extends React.Component {
                 filterablePeaks: this.props.store
             }, () => {
 
-                this.state.filterablePeaks.forEach(p => {
-                    if (p.mileage <= this.state.mileage) {
-                        peaksMileage.push(p)
-                    }
-                })
+                if (this.state.gain) {
+                    this.state.filterablePeaks.forEach(p => {
+                        if (p.mileage <= this.state.mileage) {
+                            peaksMileage.push(p)
+                        }
+                    })
 
-                this.setState({
-                    peaks: peaksMileage
-                })
+                    this.setState({
+                        peaks: peaksMileage
+                    })    
 
+                }  else {
+                    this.state.peaks.forEach(p => {
+                        if (p.mileage <= this.state.mileage) {
+                            peaksMileage.push(p)
+                        }
+                    })
+
+                    this.setState({
+                        peaks: peaksMileage
+                    })
+
+                }
             })
         })
     }
@@ -229,16 +242,29 @@ class ViewPeaks extends React.Component {
                 filterablePeaks: this.props.store
             }, () => {
 
-                this.state.filterablePeaks.forEach(p => {
-                    if (p.gain <= this.state.gain) {
-                        peaksGain.push(p)
-                    }
-                })
+                if (this.state.mileage) {
+                    this.state.filterablePeaks.forEach(p => {
+                        if (p.gain <= this.state.gain) {
+                            peaksGain.push(p)
+                        }
+                    })
 
-                this.setState({
-                    peaks: peaksGain
-                })
+                    this.setState({
+                        peaks: peaksGain
+                    })
 
+                } else {
+                    this.state.peaks.forEach(p => {
+                        if (p.gain <= this.state.gain) {
+                            peaksGain.push(p)
+                        }
+                    })  
+
+                    this.setState({
+                        peaks: peaksGain
+                    })
+                    
+                }
             })
         })
     }
