@@ -160,186 +160,41 @@ class ViewPeaks extends React.Component {
                 class: parseInt(e.target.value),   
             })            
         }
+        
+        this.filterPeaks()
     }
 
 
 
-    handleClassSelects = (e) => {
-        
-    }
+    filterPeaks = () => {
+        this.setState({
+            filterablePeaks: this.props.store
+        }, () => {
 
-    // handleFilterSubmit = (e) => {
-    //     e.preventDefault()
-
-    //     let filteredPeaks = []  
-        
-        
-    //     if (this.state.mileage) {
-    //         this.state.filterablePeaks.forEach(p => {
-    //             if ( (p.mileage <= this.state.mileage) && (filteredPeaks.indexOf(p) === -1)  ) {
-    //                 filteredPeaks.push(p)
-    //             }
-    //         })
-    //     }
-    
-    //     if (this.state.gain) {
-    //         this.state.filterablePeaks.forEach(p => {
-    //             if ( (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && (filteredPeaks.indexOf(p) === -1) ) {
-    //                 filteredPeaks.push(p)
-    //             }            
-    //         })
-
+            let filterObject = {}
             
-    //     }
+            for (let i = 0; i < this.state.selectedFilters.length; i++ ) {
+                filterObject[this.state.selectedFilters[i]] = this.state[this.state.selectedFilters[i]]
+            }
 
-    //     this.state.classes.forEach(c => {
-    //         if(c.isChecked === true) {
-    //             let checkedPeaks = this.state.filterablePeaks.filter(p =>
-    //                 p.class[0].includes(c.value.toString())    
-    //             )
+            console.log(filterObject)
 
-    //             checkedPeaks.forEach(p => {
-    //                 filteredPeaks.push(p)
-    //             })
-    //         }
-    //     })
+            let filteredPeaks = this.state.filterablePeaks
+            
+            filteredPeaks = filteredPeaks.filter(function(item) {
+                for (var key in filterObject) {
+                    if (item[key]  || item[key] != filterObject[key])
+                        return false
+                }
+                return true
+            })
 
+            console.log(filteredPeaks)
 
+        })
         
+    }
 
-    //     this.setState({
-    //         peaks: filteredPeaks
-    //     })
-    // }
-
-    // handleClassSelects = (e) => {
-    //     let peaksClasses = []
-
-    //     let classes = this.state.classes
-
-    //     classes.forEach(c => {
-    //         if (c.value === parseInt(e.target.value))
-    //             c.isChecked = e.target.checked
-    //     })
-
-    //     this.setState({ 
-    //         classes: classes
-    //     }, ()=> {
-    //         this.setState({
-    //             filterablePeaks: this.props.store
-    //         }, () => { 
-    //             console.log(this.state.gain)
-                
-    //             if (this.state.mileage !== 0 || this.state.gain !== 0) {
-
-    //                 this.state.classes.forEach(c => {
-    //                     if (c.isChecked === true) {
-    //                         let checkedPeaks = this.state.peaks.filter(p => 
-    //                             p.class[0].includes(c.value.toString())    
-    //                         )
-    //                         checkedPeaks.forEach(peak => peaksClasses.push(peak))
-    //                     }
-
-    //                     this.setState({
-    //                         peaks: peaksClasses
-    //                     })
-                        
-    //                 })
-
-
-    //             } else {
-    //                 this.state.classes.forEach(c => {
-    //                     if (c.isChecked === true) {
-    //                         let checkedPeaks = this.state.filterablePeaks.filter(p =>
-    //                             p.class[0].includes(c.value.toString())
-    //                         )
-    //                         checkedPeaks.forEach(peak => peaksClasses.push(peak))
-    //                     }
-
-    //                     this.setState({
-    //                         peaks: peaksClasses
-    //                     })
-    //                 })
-    //             }    
-    //         })
-    //     })
-    // }
-
-
-    // filterMileage = (e) => {
-    //     let peaksMileage = []
-
-    //     this.setState({
-    //         mileage: e.target.value
-    //     }, () => {
-    //         this.setState({
-    //             filterablePeaks: this.props.store
-    //         }, () => {
-                
-    //             if ( (this.state.gain)  ) {
-    //                 this.state.peaks.forEach(p => {
-    //                     if (p.mileage <= this.state.mileage) {
-    //                         peaksMileage.push(p)
-    //                     }
-    //                 })
-
-    //                 this.setState({
-    //                     peaks: peaksMileage
-    //                 })    
-
-    //             }  else {
-    //                 this.state.filterablePeaks.forEach(p => {
-    //                     if (p.mileage <= this.state.mileage) {
-    //                         peaksMileage.push(p)
-    //                     }
-    //                 })
-
-    //                 this.setState({
-    //                     peaks: peaksMileage
-    //                 })
-
-    //             }
-    //         })
-    //     })
-    // }
-
-    // filterGain = (e) => {
-    //     let peaksGain = []
-
-    //     this.setState({
-    //         gain: e.target.value
-    //     }, () => {
-
-    //         this.setState({
-    //             filterablePeaks: this.props.store
-    //         }, () => {
-
-    //             if ( (this.state.mileage) || (this.state.classes.isChecked = true) ) {
-    //                 this.state.peaks.forEach(p => {
-    //                     if ( parseInt((p.gain.replace(/,/g, ''))) <= this.state.gain) {
-    //                         peaksGain.push(p)
-    //                     }
-    //                 })
-
-    //                 this.setState({
-    //                     peaks: peaksGain
-    //                 })
-
-    //             } else {
-    //                 this.state.filterablePeaks.forEach(p => {
-    //                     if ( parseInt((p.gain.replace(/,/g, ''))) <= this.state.gain) {
-    //                         peaksGain.push(p)
-    //                     }
-    //                 })  
-
-    //                 this.setState({
-    //                     peaks: peaksGain
-    //                 })
-                    
-    //             }
-    //         })
-    //     })
-    // }
     
     render() {
 
@@ -373,14 +228,14 @@ class ViewPeaks extends React.Component {
                             <input type="submit" />  
                         </form>
                         <div className="center">
-                    <label htmlFor="sort">Sort:</label>
-                    <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
-                    <option value="">None</option>
-                    <option value="peakname">Name</option>
-                    <option value="mileage">Mileage</option>
-                    <option value="gain">Elevation Gain</option>
-                    </select>
-                </div>
+                            <label htmlFor="sort">Sort:</label>
+                            <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
+                            <option value="">None</option>
+                            <option value="peakname">Name</option>
+                            <option value="mileage">Mileage</option>
+                            <option value="gain">Elevation Gain</option>
+                            </select>
+                        </div>
                     </div>
 
 
@@ -402,6 +257,7 @@ class ViewPeaks extends React.Component {
                             <option value="6">6</option>
                         </select>
                     </div>
+
                     <div>
                         <label>Filter By Max Elevation Gain</label>
                         <select name="gain" onChange={e => this.filterGain(e)}>
@@ -419,6 +275,7 @@ class ViewPeaks extends React.Component {
                             <option value="6000">6000</option>
                         </select>
                     </div>
+
                     <div>
                         <label>Filter By Class</label>
                             <select name="class" onChange={e => this.filterClass(e)}>
@@ -431,8 +288,6 @@ class ViewPeaks extends React.Component {
                             </select>
                     </div>
 
-
-                    
                 </section>
                 
                 <div className="App_error">{ this.state.error }</div>
