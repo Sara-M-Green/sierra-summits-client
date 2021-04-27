@@ -1,4 +1,14 @@
-.slidecontainer {
+.center {
     text-align: center;
+}
+
+#searchByName {
+    margin-bottom: 50px;
+}
+
+#filters {
+    border: 2px solid white;
+    max-width: 50%;
+    margin: auto
 }
 

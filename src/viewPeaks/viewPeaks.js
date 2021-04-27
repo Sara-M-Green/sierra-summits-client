@@ -1,7 +1,6 @@
 import React from 'react'
 import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
-import Checkbox from '../checkbox/checkbox'
 import config from '../config'
 
 // let peaksClasses = []
@@ -10,31 +9,24 @@ class ViewPeaks extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            peaks: this.props.store,
+            peaks: [],
             search: '',
             sort: '',
-            classes: [
-                {id: 1, value: 1, isChecked: false},
-                {id: 2, value: 2, isChecked: false},
-                {id: 3, value: 3, isChecked: false},
-                {id: 4, value: 4, isChecked: false},
-                {id: 5, value: 5, isChecked: false},
-            ],
-            mileage: 0,
-            gain: 0,
+            class: null,
+            mileage: null,
+            gain: null,
             error: null,
             filterablePeaks: this.props.store,
+            selectedFilters: []
         }
     }
 
-    
 
-
-    // componentDidMount() {
-    //     this.setState({
-    //         peaks: this.props.store
-    //     })
-    // }
+    handleViewAll = () => {
+        this.setState({
+            peaks: this.props.store            
+        })
+    }
 
     
     setSearch = (search) => {
@@ -63,15 +55,13 @@ class ViewPeaks extends React.Component {
 
         if (sort) {
             let peakResults = this.state.peaks
-            if (sort !== 'gain' || sort !== 'mileage') {
+            if (sort !== 'gain') {
                 peakResults.sort((a, b) => {
                     return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0
                 })    
             } else {
                 peakResults.sort((a, b) => {
-                    // return parseInt(a[sort]) > parseInt(b[sort]) ? 1 : parseInt(a[sort]) < parseInt(b[sort]) ? -1 : 0
-                    console.log(parseInt(a[sort]))
-                    return parseInt(a[sort]) - parseInt(b[sort])
+                    return parseInt(a[sort].replace(/,/g, '')) > parseInt(b[sort].replace(/,/g, '')) ? 1 : parseInt(a[sort].replace(/,/g, '')) < parseInt(b[sort].replace(/,/g, '')) ? -1 : 0
                 })    
             } 
 
@@ -79,56 +69,8 @@ class ViewPeaks extends React.Component {
                 peaks: peakResults
             })            
         }
-
-        
     }
 
-
-    // handleClassSelects = (e) => {
-
-    //     this.setState({
-    //         filterablePeaks: this.props.store
-    //     }, () => {
-
-    //         let classes = this.state.classes
-
-    //         classes.forEach(classItem => {
-    //             if (classItem.value === parseInt(e.target.value))
-    //                 classItem.isChecked = e.target.checked
-    //         })
-
-    //         this.setState({classes: classes}, () => {
-
-    //             const selectedClass = this.state.classes.find(c => c.value == e.target.value)
-    //             console.log(selectedClass)
-
-    //             if (selectedClass.isChecked === true) {
-    //                 let checkedPeaks = this.state.filterablePeaks.filter(peak => 
-    //                     peak.class[0]
-    //                         .includes(e.target.value.toString())
-    //                 )
-    //                 checkedPeaks.forEach(peak => peaksClasses.push(peak))
-    //                 console.log(peaksClasses)
-
-    //                 this.setState({
-    //                     peaks: peaksClasses
-    //                 })
-    //             }
-    //             if (selectedClass.isChecked === false) {
-    //                 let uncheckedPeaks = peaksClasses.filter(peak => 
-    //                     peak.class[0]
-    //                         .includes(e.target.value.toString())
-    //                 )
-    //                 uncheckedPeaks.forEach(peak => peaksClasses.pop(peak))
-    //                 console.log(peaksClasses)
-
-    //                 this.setState({
-    //                     peaks: peaksClasses
-    //                 })
-    //             }
-    //         })
-    //     })
-    // }
 
     handleSubmit(e) {
         e.preventDefault()
@@ -162,137 +104,242 @@ class ViewPeaks extends React.Component {
             })
     }
 
-
-    handleClassSelects = (e) => {
-        let peaksClasses = []
-
-        this.setState({
-            filterablePeaks: this.props.store
-        }, () => {
-
-            let classes = this.state.classes
-
-            classes.forEach(classItem => {
-                if (classItem.value === parseInt(e.target.value))
-                    classItem.isChecked = e.target.checked
-            })
-
-            this.setState({classes: classes}, () => {
-
-                this.state.classes.forEach(c => {
-                    if (c.isChecked === true) {
-                        let checkedPeaks = this.state.filterablePeaks.filter(p =>
-                            p.class[0].includes(c.value.toString())
-                        )
-                        
-                        checkedPeaks.forEach(peak => peaksClasses.push(peak))
-                    }
-                    this.setState({
-                        peaks: peaksClasses
-                    })
-                })
-            })
-        })
-    }
-
     filterMileage = (e) => {
-        let peaksMileage = []
-
-        this.setState({
-            mileage: e.target.value
-        }, () => {
+        if (!e.target.value) {
+            const newSelectedFilter = this.state.selectedFilters.filter(item => item !== 'mileage')
             this.setState({
-                filterablePeaks: this.props.store
-            }, () => {
-
-                if (this.state.gain) {
-                    this.state.filterablePeaks.forEach(p => {
-                        if (p.mileage <= this.state.mileage) {
-                            peaksMileage.push(p)
-                        }
-                    })
-
-                    this.setState({
-                        peaks: peaksMileage
-                    })    
-
-                }  else {
-                    this.state.peaks.forEach(p => {
-                        if (p.mileage <= this.state.mileage) {
-                            peaksMileage.push(p)
-                        }
-                    })
-
-                    this.setState({
-                        peaks: peaksMileage
-                    })
-
-                }
+                mileage: null,
+                selectedFilters: newSelectedFilter
             })
-        })
+        } else {
+            if (this.state.selectedFilters.indexOf('mileage') === -1) {
+                this.setState({
+                    selectedFilters: [...this.state.selectedFilters, 'mileage']
+                })
+            }
+            this.setState({
+                mileage: e.target.value,
+            })            
+        }
     }
 
     filterGain = (e) => {
-        let peaksGain = []
-
-        this.setState({
-            gain: e.target.value
-        }, () => {
+        if (!e.target.value) {
+            const newSelectedFilter = this.state.selectedFilters.filter(item => item !== 'gain')
             this.setState({
-                filterablePeaks: this.props.store
-            }, () => {
-
-                if (this.state.mileage) {
-                    this.state.filterablePeaks.forEach(p => {
-                        if (p.gain <= this.state.gain) {
-                            peaksGain.push(p)
-                        }
-                    })
-
-                    this.setState({
-                        peaks: peaksGain
-                    })
-
-                } else {
-                    this.state.peaks.forEach(p => {
-                        if (p.gain <= this.state.gain) {
-                            peaksGain.push(p)
-                        }
-                    })  
-
-                    this.setState({
-                        peaks: peaksGain
-                    })
-                    
-                }
+                gain: null,
+                selectedFilters: newSelectedFilter
             })
-        })
+        } else {
+            if (this.state.selectedFilters.indexOf('gain') === -1) {
+                this.setState({
+                    selectedFilters: [...this.state.selectedFilters, 'gain']
+                })
+            }
+            this.setState({
+                gain: parseInt(e.target.value),
+                
+            })            
+        }
     }
 
-    // handleSliders = (e, name) => {
-    //     let peakSlider = []
+    filterClass = (e) => {
+        if (!e.target.value) {
+            const newSelectedFilter = this.state.selectedFilters.filter(item => item !== 'class')
+            this.setState({
+                gain: null,
+                selectedFilters: newSelectedFilter
+            })
+        } else {
+            if (this.state.selectedFilters.indexOf('class') === -1) {
+                this.setState({
+                    selectedFilters: [...this.state.selectedFilters, 'class']
+                })
+            }
+            this.setState({
+                class: parseInt(e.target.value),   
+            })            
+        }
+    }
+
+
+
+    handleClassSelects = (e) => {
+        
+    }
+
+    // handleFilterSubmit = (e) => {
+    //     e.preventDefault()
+
+    //     let filteredPeaks = []  
+        
+        
+    //     if (this.state.mileage) {
+    //         this.state.filterablePeaks.forEach(p => {
+    //             if ( (p.mileage <= this.state.mileage) && (filteredPeaks.indexOf(p) === -1)  ) {
+    //                 filteredPeaks.push(p)
+    //             }
+    //         })
+    //     }
+    
+    //     if (this.state.gain) {
+    //         this.state.filterablePeaks.forEach(p => {
+    //             if ( (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && (filteredPeaks.indexOf(p) === -1) ) {
+    //                 filteredPeaks.push(p)
+    //             }            
+    //         })
+
+            
+    //     }
+
+    //     this.state.classes.forEach(c => {
+    //         if(c.isChecked === true) {
+    //             let checkedPeaks = this.state.filterablePeaks.filter(p =>
+    //                 p.class[0].includes(c.value.toString())    
+    //             )
+
+    //             checkedPeaks.forEach(p => {
+    //                 filteredPeaks.push(p)
+    //             })
+    //         }
+    //     })
+
+
+        
 
     //     this.setState({
-    //         [name]: e.target.value
-    //     }, () => {
+    //         peaks: filteredPeaks
+    //     })
+    // }
+
+    // handleClassSelects = (e) => {
+    //     let peaksClasses = []
+
+    //     let classes = this.state.classes
+
+    //     classes.forEach(c => {
+    //         if (c.value === parseInt(e.target.value))
+    //             c.isChecked = e.target.checked
+    //     })
+
+    //     this.setState({ 
+    //         classes: classes
+    //     }, ()=> {
     //         this.setState({
     //             filterablePeaks: this.props.store
-    //         }, () => {
+    //         }, () => { 
+    //             console.log(this.state.gain)
+                
+    //             if (this.state.mileage !== 0 || this.state.gain !== 0) {
 
-    //             this.state.filterablePeaks.forEach(p => {
-    //                 if(p[name] <= this.state.[name]) {
-    //                     peakSlider.push(p)
-    //                 }
-    //             })
+    //                 this.state.classes.forEach(c => {
+    //                     if (c.isChecked === true) {
+    //                         let checkedPeaks = this.state.peaks.filter(p => 
+    //                             p.class[0].includes(c.value.toString())    
+    //                         )
+    //                         checkedPeaks.forEach(peak => peaksClasses.push(peak))
+    //                     }
 
-    //             this.setState({
-    //                 peaks: peakSlider
-    //             })
+    //                     this.setState({
+    //                         peaks: peaksClasses
+    //                     })
+                        
+    //                 })
+
+
+    //             } else {
+    //                 this.state.classes.forEach(c => {
+    //                     if (c.isChecked === true) {
+    //                         let checkedPeaks = this.state.filterablePeaks.filter(p =>
+    //                             p.class[0].includes(c.value.toString())
+    //                         )
+    //                         checkedPeaks.forEach(peak => peaksClasses.push(peak))
+    //                     }
+
+    //                     this.setState({
+    //                         peaks: peaksClasses
+    //                     })
+    //                 })
+    //             }    
     //         })
     //     })
     // }
 
 
+    // filterMileage = (e) => {
+    //     let peaksMileage = []
+
+    //     this.setState({
+    //         mileage: e.target.value
+    //     }, () => {
+    //         this.setState({
+    //             filterablePeaks: this.props.store
+    //         }, () => {
+                
+    //             if ( (this.state.gain)  ) {
+    //                 this.state.peaks.forEach(p => {
+    //                     if (p.mileage <= this.state.mileage) {
+    //                         peaksMileage.push(p)
+    //                     }
+    //                 })
+
+    //                 this.setState({
+    //                     peaks: peaksMileage
+    //                 })    
+
+    //             }  else {
+    //                 this.state.filterablePeaks.forEach(p => {
+    //                     if (p.mileage <= this.state.mileage) {
+    //                         peaksMileage.push(p)
+    //                     }
+    //                 })
+
+    //                 this.setState({
+    //                     peaks: peaksMileage
+    //                 })
+
+    //             }
+    //         })
+    //     })
+    // }
+
+    // filterGain = (e) => {
+    //     let peaksGain = []
+
+    //     this.setState({
+    //         gain: e.target.value
+    //     }, () => {
+
+    //         this.setState({
+    //             filterablePeaks: this.props.store
+    //         }, () => {
+
+    //             if ( (this.state.mileage) || (this.state.classes.isChecked = true) ) {
+    //                 this.state.peaks.forEach(p => {
+    //                     if ( parseInt((p.gain.replace(/,/g, ''))) <= this.state.gain) {
+    //                         peaksGain.push(p)
+    //                     }
+    //                 })
+
+    //                 this.setState({
+    //                     peaks: peaksGain
+    //                 })
+
+    //             } else {
+    //                 this.state.filterablePeaks.forEach(p => {
+    //                     if ( parseInt((p.gain.replace(/,/g, ''))) <= this.state.gain) {
+    //                         peaksGain.push(p)
+    //                     }
+    //                 })  
+
+    //                 this.setState({
+    //                     peaks: peaksGain
+    //                 })
+                    
+    //             }
+    //         })
+    //     })
+    // }
     
     render() {
 
@@ -307,37 +354,13 @@ class ViewPeaks extends React.Component {
                 elevation_gain={peak.gain}
             />
         })
-        const checkboxes = this.state.classes.map((box, i) => {
-            return <Checkbox
-                {...box}
-                peaks={this.state.peaks} 
-                key={i}
-                id={box.id} 
-                value={box.value} 
-                isChecked={box.isChecked}
-                handleClick={this.handleClassSelects}
-            />
-        })
 
         
         return (
             <div>
                 <h1>SPS Peak List</h1>
-                <section className="slidecontainer">
-                    <div>
-                        <label>Filter By Max Mileage</label>
-                        <input type="range" name="mileage" value={this.state.mileage} onChange = {e => this.filterMileage(e)} min="0" max="30" step="1" className="slider" id="myRange" />
-                        {this.state.mileage}
-                    </div>
-                    <div>
-                        <label>Filter By Max Elevation Gain</label>
-                        <input type="range" name="gain" value={this.state.gain} onChange = {e => this.filterGain(e)} min="1000" max="8000" step="1000" className="slider" id="myRange" />
-                        {this.state.gain}
-                    </div>
-                    <div>
-                        {checkboxes}
-                    </div>
-                    <div>
+                <button className="center" onClick={this.handleViewAll}>View All</button>
+                    <div className="center" id="searchByName">
                         <form onSubmit={e => this.handleSubmit(e)}>
                             <label htmlFor="search">Search for peak by name:</label>
                             <input 
@@ -347,26 +370,72 @@ class ViewPeaks extends React.Component {
                                 value={this.state.search}
                                 onChange={e => this.setSearch(e.target.value)}
                             /> 
-
                             <input type="submit" />  
-                        </form> 
+                        </form>
+                        <div className="center">
+                    <label htmlFor="sort">Sort:</label>
+                    <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
+                    <option value="">None</option>
+                    <option value="peakname">Name</option>
+                    <option value="mileage">Mileage</option>
+                    <option value="gain">Elevation Gain</option>
+                    </select>
+                </div>
                     </div>
+
+
+                <section className="center" id="filters" >
+                    <h2>Filter Peaks</h2>
                     <div>
-                    
-                    </div>
-                    <div>
-                        <label htmlFor="sort">Sort:</label>
-                        <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
-                        <option value="">None</option>
-                        <option value="peakname">Name</option>
-                        <option value="mileage">Mileage</option>
-                        <option value="gain">Elevation Gain</option>
+                        <label>Filter By Max Mileage To Summit (One Way)</label>
+                      
+                        <select name="mileage" onChange={e => this.filterMileage(e)}>
+                            <option value="">0</option>
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5">5</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6">6</option>
                         </select>
                     </div>
+                    <div>
+                        <label>Filter By Max Elevation Gain</label>
+                        <select name="gain" onChange={e => this.filterGain(e)}>
+                            <option value="">0</option>
+                            <option value="1000">1000</option>
+                            <option value="1500">1500</option>
+                            <option value="2000">2000</option>
+                            <option value="2500">2500</option>
+                            <option value="3000">3000</option>
+                            <option value="3500">3500</option>
+                            <option value="4000">4000</option>
+                            <option value="4500">4500</option>
+                            <option value="5000">5000</option>
+                            <option value="5500">5500</option>
+                            <option value="6000">6000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Filter By Class</label>
+                            <select name="class" onChange={e => this.filterClass(e)}>
+                                <option value="">   </option>
+                                <option value="1">Class 1</option>
+                                <option value="2">Class 2</option>
+                                <option value="3">Class 3</option>
+                                <option value="4">Class 4</option>
+                                <option value="5">Class 5</option>
+                            </select>
+                    </div>
 
-                    <div className="App_error">{ this.state.error }</div>
+
+                    
                 </section>
-
+                
+                <div className="App_error">{ this.state.error }</div>
                 {peaks}
                 
             </div>
