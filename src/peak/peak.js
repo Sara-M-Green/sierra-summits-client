@@ -54,8 +54,8 @@ class Peak extends Component {
                 </div>
                 <img src={this.props.store[ID].image} alt="peak" />
                 <p>Elevation: {this.props.store[ID].summit} ft</p>
-                <p>{this.props.store[ID].latLong}</p>
-                <p>Trailhead: {this.props.store[ID].trailHead}</p>
+                <p>{this.props.store[ID].latlong}</p>
+                <p>Trailhead: {this.props.store[ID].trailhead}</p>
                 <p>{this.props.store[ID].overview}</p>
                 <p>{this.props.store[ID].route}</p>
                 <div className="peakLinks">
