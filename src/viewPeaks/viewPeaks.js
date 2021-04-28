@@ -110,6 +110,8 @@ class ViewPeaks extends React.Component {
             this.setState({
                 mileage: null,
                 selectedFilters: newSelectedFilter
+            }, () => {
+                this.filterPeaks()
             })
         } else {
             if (this.state.selectedFilters.indexOf('mileage') === -1) {
@@ -119,6 +121,8 @@ class ViewPeaks extends React.Component {
             }
             this.setState({
                 mileage: e.target.value,
+            }, () => {
+                this.filterPeaks()
             })            
         }
     }
@@ -129,6 +133,8 @@ class ViewPeaks extends React.Component {
             this.setState({
                 gain: null,
                 selectedFilters: newSelectedFilter
+            }, () => {
+                this.filterPeaks()
             })
         } else {
             if (this.state.selectedFilters.indexOf('gain') === -1) {
@@ -139,6 +145,8 @@ class ViewPeaks extends React.Component {
             this.setState({
                 gain: parseInt(e.target.value),
                 
+            }, () => {
+                this.filterPeaks()
             })            
         }
     }
@@ -149,6 +157,8 @@ class ViewPeaks extends React.Component {
             this.setState({
                 gain: null,
                 selectedFilters: newSelectedFilter
+            }, () => {
+                this.filterPeaks()
             })
         } else {
             if (this.state.selectedFilters.indexOf('class') === -1) {
@@ -158,6 +168,8 @@ class ViewPeaks extends React.Component {
             }
             this.setState({
                 class: parseInt(e.target.value),   
+            }, () => {
+                this.filterPeaks()
             })            
         }
         
@@ -171,25 +183,100 @@ class ViewPeaks extends React.Component {
             filterablePeaks: this.props.store
         }, () => {
 
-            let filterObject = {}
+            // let filterObject = {}
             
-            for (let i = 0; i < this.state.selectedFilters.length; i++ ) {
-                filterObject[this.state.selectedFilters[i]] = this.state[this.state.selectedFilters[i]]
+            // for (let i = 0; i < this.state.selectedFilters.length; i++ ) {
+            //     filterObject[this.state.selectedFilters[i]] = this.state[this.state.selectedFilters[i]]
+            // }
+
+
+
+            //single item filtering
+
+            if (this.state.selectedFilters.length === 1 && this.state.selectedFilters[0] === 'mileage') {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => p.mileage <= this.state.mileage)
+                this.setState({
+                    peaks: filteredPeaks
+                })
             }
 
-            console.log(filterObject)
+            if (this.state.selectedFilters.length === 1 && this.state.selectedFilters[0] === 'gain') {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => parseInt(p.gain.replace(/,/g, '')) <= this.state.gain)
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
 
-            let filteredPeaks = this.state.filterablePeaks
+            if (this.state.selectedFilters.length === 1 && this.state.selectedFilters[0] === 'class') {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => p.class[0].includes(this.state.class.toString()))
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
+
+            //double item filtering
+
+                //gain + mileage
+
+            if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('mileage' && 'gain')) {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => {
+                    return (p.mileage <= this.state.mileage) && (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain)
+                })
+
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
+
+                //mileage + class
+
+            if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('mileage' && 'class')) {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => {
+                    return (p.mileage <= this.state.mileage) && ( p.class[0].includes(this.state.class.toString()) )
+                })
+
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
+
+                //class + gain
             
-            filteredPeaks = filteredPeaks.filter(function(item) {
-                for (var key in filterObject) {
-                    if (item[key]  || item[key] != filterObject[key])
-                        return false
-                }
-                return true
-            })
+            if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('gain' && 'class')) {
+                let filteredPeaks = this.state.filterablePeaks.filter(p => {
+                    return (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && ( p.class[0].includes(this.state.class.toString()) )
+                })
 
-            console.log(filteredPeaks)
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
+            
+
+            // triple item filtering
+
+            if (this.state.selectedFilters.length === 3) {
+                console.log('filter by everything')
+                let filteredPeaks = this.state.filterablePeaks.filter(p => {
+                   return (p.mileage <= this.state.mileage) && (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && (p.class[0].includes(this.state.class.toString()) )
+                })
+                this.setState({
+                    peaks: filteredPeaks
+                })
+            }
+
+
+
+            // let filteredPeaks = this.state.filterablePeaks
+            
+            // filteredPeaks = filteredPeaks.filter(function(item) {
+            //     for (var key in filterObject) {
+            //         if (item[key]  || item[key] != filterObject[key])
+            //             return false
+            //     }
+            //     return true
+            // })
+
 
         })
         
