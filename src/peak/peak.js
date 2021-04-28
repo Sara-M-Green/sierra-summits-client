@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Register from '../register/register'
+import config from '../config'
 import './peak.css'
 
 class Peak extends Component {
@@ -13,7 +14,7 @@ class Peak extends Component {
     }
 
     componentDidMount() {
-        const baseUrl = 'http://localhost:8000/api/comments'
+        const baseUrl = `${config.API_ENDPOINT}/comments`
         const peakId = (this.props.match.params.id)
 
         const url = `${baseUrl}/${peakId}`

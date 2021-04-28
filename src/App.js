@@ -5,6 +5,7 @@ import ViewPeaks from './viewPeaks/viewPeaks'
 import Peak from './peak/peak'
 import AddComment from './addComment/addComment'
 import Navbar from './navbar/navbar'
+import config from './config'
 
 class App extends Component {
   state = {
@@ -12,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const baseUrl = 'http://localhost:8000/api/peaks'
+    const baseUrl = `${config.API_ENDPOINT}/peaks`
     const params = []
     if (this.state.search) {
         params.push(`search=${this.state.search}`)

@@ -1,5 +1,5 @@
 const API_ENDPOINT =  {
-    API_ENDPOINT: `http://localhost:8000/api`
+    API_ENDPOINT: `https://gentle-brushlands-13240.herokuapp.com/api`
 }
 
 export default API_ENDPOINT
