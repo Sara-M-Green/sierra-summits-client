@@ -183,14 +183,6 @@ class ViewPeaks extends React.Component {
             filterablePeaks: this.props.store
         }, () => {
 
-            // let filterObject = {}
-            
-            // for (let i = 0; i < this.state.selectedFilters.length; i++ ) {
-            //     filterObject[this.state.selectedFilters[i]] = this.state[this.state.selectedFilters[i]]
-            // }
-
-
-
             //single item filtering
 
             if (this.state.selectedFilters.length === 1 && this.state.selectedFilters[0] === 'mileage') {
@@ -231,9 +223,13 @@ class ViewPeaks extends React.Component {
                 //mileage + class
 
             if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('mileage' && 'class')) {
+                console.log('miles plus class filter')
                 let filteredPeaks = this.state.filterablePeaks.filter(p => {
-                    return (p.mileage <= this.state.mileage) && ( p.class[0].includes(this.state.class.toString()) )
+                    // console.log(`${p.mileage} - ${this.state.mileage} ------ ${p.class[0]} - ${this.state.class.toString()}` )
+                    return (p.mileage <= this.state.mileage) && (p.class[0].includes(this.state.class.toString()))
                 })
+                
+                console.log(filteredPeaks)
 
                 this.setState({
                     peaks: filteredPeaks
@@ -256,7 +252,6 @@ class ViewPeaks extends React.Component {
             // triple item filtering
 
             if (this.state.selectedFilters.length === 3) {
-                console.log('filter by everything')
                 let filteredPeaks = this.state.filterablePeaks.filter(p => {
                    return (p.mileage <= this.state.mileage) && (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && (p.class[0].includes(this.state.class.toString()) )
                 })
