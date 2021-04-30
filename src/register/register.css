@@ -4,8 +4,17 @@ h2 {
     margin-top: 0;
 }
 
+.summitreg {
+    background-color: white;
+    text-align: center;
+}
+
 .register {
     max-width: 85%;
     margin: 15px auto;
     background-color: #F1F6F8;
+}
+
+#peakinks {
+    color: purple;
 }

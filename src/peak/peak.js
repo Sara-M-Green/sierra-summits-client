@@ -59,9 +59,9 @@ class Peak extends Component {
                 <p>{this.props.store[ID].overview}</p>
                 <p>{this.props.store[ID].route}</p>
                 <div className="peakLinks">
-                    <Link to={`${this.props.match.params.id}/comment`} className="peakLinks" >Sign Summit Register</Link>
+                    {/* <Link to={`${this.props.match.params.id}/comment`} className="peakLinks" >Sign Summit Register</Link> */}
                 </div>
-                <Register store={this.props.store} comments={this.state.comments}/>
+                <Register store={this.props.store} id={this.props.match.params.id} comments={this.state.comments}/>
             </div>
         )
     }

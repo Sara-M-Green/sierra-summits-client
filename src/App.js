@@ -66,7 +66,7 @@ class App extends Component {
           <Route 
             exact path='/api/peaks/:id'
             render={(props) => (
-              <Peak {...props} store={this.state.store} />
+              <Peak {...props} store={this.state.store}/>
             )}
           />
           <Route  

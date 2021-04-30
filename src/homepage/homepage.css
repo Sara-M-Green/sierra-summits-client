@@ -12,7 +12,7 @@ img {
 p {
     margin: 25px;
     text-align: center;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 button {

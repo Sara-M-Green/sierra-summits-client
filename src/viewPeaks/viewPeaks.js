@@ -3,8 +3,6 @@ import Thumbnail from '../thumbnail/thumbnail'
 import './viewPeaks.css'
 import config from '../config'
 
-// let peaksClasses = []
-
 class ViewPeaks extends React.Component {
     constructor(props) {
         super(props)
@@ -172,8 +170,6 @@ class ViewPeaks extends React.Component {
                 this.filterPeaks()
             })            
         }
-        
-        this.filterPeaks()
     }
 
 
@@ -225,7 +221,6 @@ class ViewPeaks extends React.Component {
             if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('mileage' && 'class')) {
                 console.log('miles plus class filter')
                 let filteredPeaks = this.state.filterablePeaks.filter(p => {
-                    // console.log(`${p.mileage} - ${this.state.mileage} ------ ${p.class[0]} - ${this.state.class.toString()}` )
                     return (p.mileage <= this.state.mileage) && (p.class[0].includes(this.state.class.toString()))
                 })
                 
@@ -238,7 +233,7 @@ class ViewPeaks extends React.Component {
 
                 //class + gain
             
-            if (this.state.selectedFilters.length === 2 && this.state.selectedFilters.includes('gain' && 'class')) {
+            if (this.state.selectedFilters.includes('gain' && 'class') && this.state.selectedFilters.length === 2) {
                 let filteredPeaks = this.state.filterablePeaks.filter(p => {
                     return (parseInt(p.gain.replace(/,/g, '')) <= this.state.gain) && ( p.class[0].includes(this.state.class.toString()) )
                 })
@@ -260,19 +255,6 @@ class ViewPeaks extends React.Component {
                 })
             }
 
-
-
-            // let filteredPeaks = this.state.filterablePeaks
-            
-            // filteredPeaks = filteredPeaks.filter(function(item) {
-            //     for (var key in filterObject) {
-            //         if (item[key]  || item[key] != filterObject[key])
-            //             return false
-            //     }
-            //     return true
-            // })
-
-
         })
         
     }
@@ -289,6 +271,7 @@ class ViewPeaks extends React.Component {
                 id={peak.id}
                 class={peak.class}
                 elevation_gain={peak.gain}
+                
             />
         })
 
@@ -296,6 +279,7 @@ class ViewPeaks extends React.Component {
         return (
             <div>
                 <h1>SPS Peak List</h1>
+                <p>The current peak list is a sample set of 54 peaks in the Sierra Nevada Mountain Range</p>
                 <button className="center" onClick={this.handleViewAll}>View All</button>
                     <div className="center" id="searchByName">
                         <form onSubmit={e => this.handleSubmit(e)}>
@@ -327,34 +311,34 @@ class ViewPeaks extends React.Component {
                         <label>Filter By Max Mileage To Summit (One Way)</label>
                       
                         <select name="mileage" onChange={e => this.filterMileage(e)}>
-                            <option value="">0</option>
-                            <option value="2">2</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3">3</option>
-                            <option value="3.5">3.5</option>
-                            <option value="4">4</option>
-                            <option value="4.5">4.5</option>
-                            <option value="5">5</option>
-                            <option value="5.5">5.5</option>
-                            <option value="6">6</option>
+                            <option value=""> </option>
+                            <option value="2">2 miles</option>
+                            <option value="2.5">2.5 miles</option>
+                            <option value="3">3 miles</option>
+                            <option value="3.5">3.5 miles</option>
+                            <option value="4">4 miles</option>
+                            <option value="4.5">4.5 miles</option>
+                            <option value="5">5 miles</option>
+                            <option value="5.5">5.5 miles</option>
+                            <option value="6">6 miles</option>
                         </select>
                     </div>
 
                     <div>
                         <label>Filter By Max Elevation Gain</label>
                         <select name="gain" onChange={e => this.filterGain(e)}>
-                            <option value="">0</option>
-                            <option value="1000">1000</option>
-                            <option value="1500">1500</option>
-                            <option value="2000">2000</option>
-                            <option value="2500">2500</option>
-                            <option value="3000">3000</option>
-                            <option value="3500">3500</option>
-                            <option value="4000">4000</option>
-                            <option value="4500">4500</option>
-                            <option value="5000">5000</option>
-                            <option value="5500">5500</option>
-                            <option value="6000">6000</option>
+                            <option value=""> </option>
+                            <option value="1000">1000 ft</option>
+                            <option value="1500">1500 ft</option>
+                            <option value="2000">2000 ft</option>
+                            <option value="2500">2500 ft</option>
+                            <option value="3000">3000 ft</option>
+                            <option value="3500">3500 ft</option>
+                            <option value="4000">4000 ft</option>
+                            <option value="4500">4500 ft</option>
+                            <option value="5000">5000 ft</option>
+                            <option value="5500">5500 ft</option>
+                            <option value="6000">6000 ft</option>
                         </select>
                     </div>
 
