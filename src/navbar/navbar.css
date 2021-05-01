@@ -12,3 +12,15 @@
     padding-top: 10px;
     color: white;
 }
+
+.navbarLink:hover {
+    color: #9d84c1;
+}
+
+.navbarLink:active {
+    color: #75A;
+}
+
+.navbarLink {
+    color: #75A;
+}
