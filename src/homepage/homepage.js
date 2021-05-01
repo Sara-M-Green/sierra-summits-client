@@ -8,8 +8,8 @@ class Homepage extends Component {
     render() {
         return (
             <div>
-                <img src={mountains} alt="" />
-                <div>
+                <img src={mountains} alt="" id="homeImg" />
+                <div className="homepageText">
                     <p>Sierra Summits is an online summit register.</p>
                     <p>It allows users to access information on the 247 SPS peaks.</p>
                     <p>Users can sort and filter peaks based on milage, elevation or class.</p>

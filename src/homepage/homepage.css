@@ -44,6 +44,18 @@ button:hover {
     text-decoration: none;
     text-shadow: 2px 2px 2px black;
 }
-.Link:hover {
-    
+
+.homepageText {
+    position: absolute;
+    top: 6%;
+    bottom: 50%;
+    color: white;
+
+
+}
+
+
+
+#homeImg {
+    width: 100%;
 }
