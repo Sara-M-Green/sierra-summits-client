@@ -17,10 +17,6 @@
     color: #9d84c1;
 }
 
-.navbarLink:active {
-    color: #75A;
-}
-
-.navbarLink {
+.navbarLink:active, .navbarLink {
     color: #75A;
 }

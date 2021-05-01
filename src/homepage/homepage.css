@@ -56,13 +56,19 @@ button:hover {
 
 /* Responsive styles for desktop */
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
 
     #homeImg {
         width: 100%;
         height: auto;
         position: relative;
 
+    }
+
+    .homepageText {
+        max-width: 800px;
+        left: 20%;
+        right: 20%
     }
 
 }
