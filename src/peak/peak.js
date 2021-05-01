@@ -70,8 +70,6 @@ class Peak extends Component {
     }
 
     render() {
-        
-        const ID = (this.props.match.params.id - 1)
         console.log(this.props.match.params.id)
         console.log(this.state.peakData)
         return (
