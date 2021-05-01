@@ -18,6 +18,7 @@ class ViewPeaks extends React.Component {
             selectedFilters: []
         }
     }
+    
 
 
     handleViewAll = () => {
@@ -266,7 +267,7 @@ class ViewPeaks extends React.Component {
             return <Thumbnail 
                 {...peak} 
                 key={i} 
-                name={peak.peakName}
+                name={peak.peakname}
                 miles={peak.mileage}
                 id={peak.id}
                 class={peak.class}
