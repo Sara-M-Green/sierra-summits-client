@@ -278,10 +278,10 @@ class ViewPeaks extends React.Component {
 
         
         return (
-            <div>
-                <h1>SPS Peak List</h1>
+            <div className="viewPeaks">
+                <h1 id="viewPeaksHeader">SPS Peak Finder</h1>
                 <p>The current peak list is a sample set of 54 peaks in the Sierra Nevada Mountain Range</p>
-                <button className="center" onClick={this.handleViewAll}>View All</button>
+                <button className="center viewAll" onClick={this.handleViewAll}>View All Peaks</button>
                     <div className="center" id="searchByName">
                         <form onSubmit={e => this.handleSubmit(e)}>
                             <label htmlFor="search">Search for peak by name:</label>
@@ -307,11 +307,11 @@ class ViewPeaks extends React.Component {
 
 
                 <section className="center" id="filters" >
-                    <h2>Filter Peaks</h2>
+                    <h2 id="filterBox">Filter Peaks</h2>
                     <div>
-                        <label>Filter By Max Mileage To Summit (One Way)</label>
+                        <label className="filterInputs">Filter By Max Mileage To Summit (One Way)</label>
                       
-                        <select name="mileage" onChange={e => this.filterMileage(e)}>
+                        <select className="filterInputs" name="mileage" onChange={e => this.filterMileage(e)}>
                             <option value=""> </option>
                             <option value="2">2 miles</option>
                             <option value="2.5">2.5 miles</option>
@@ -326,8 +326,8 @@ class ViewPeaks extends React.Component {
                     </div>
 
                     <div>
-                        <label>Filter By Max Elevation Gain</label>
-                        <select name="gain" onChange={e => this.filterGain(e)}>
+                        <label className="filterInputs">Filter By Max Elevation Gain</label>
+                        <select className="filterInputs" name="gain" onChange={e => this.filterGain(e)}>
                             <option value=""> </option>
                             <option value="1000">1000 ft</option>
                             <option value="1500">1500 ft</option>
@@ -344,8 +344,8 @@ class ViewPeaks extends React.Component {
                     </div>
 
                     <div>
-                        <label>Filter By Class</label>
-                            <select name="class" onChange={e => this.filterClass(e)}>
+                        <label className="filterInputs">Filter By Class</label>
+                            <select className="filterInputs" name="class" onChange={e => this.filterClass(e)}>
                                 <option value="">   </option>
                                 <option value="1">Class 1</option>
                                 <option value="2">Class 2</option>
@@ -357,8 +357,12 @@ class ViewPeaks extends React.Component {
 
                 </section>
                 
-                <div className="App_error">{ this.state.error }</div>
-                {peaks}
+                <div className="appError">{ this.state.error }</div>
+
+                <div className="thumbnailContainer">
+                    {peaks}    
+                </div>
+                
                 
             </div>
             

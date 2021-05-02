@@ -1,16 +1,34 @@
+h3 {
+    margin: 5px 8px;
+}
+
 .thumbnail {
-    border: 1px solid #283618;
-    width: 150px;
+    /* border: 1px solid #283618; */
+    box-shadow: 0 4px 8px 0 #000;
+    transition: 0.3s;
+    /* width: 250px; */
+    max-width: 50%;
     background: white;
     color: #232C33;
-    margin: 5px auto;
+    margin: 15px auto;
     text-align: center;
+    border-radius: 30px;
+}
+
+.thumbnail:hover {
+    box-shadow: 0 8px 8px 0 #000;
+}
+
+.thumbTitle {
+   color: black;
+   font-size: 22px;
+   text-shadow: 2px 2px 4px lavender;
+   text-transform: uppercase;
+   /* text-decoration: underline; */
 }
 
 p {
     margin: 5px;
 }
 
-a h2 {
-    color: white;
-}
+

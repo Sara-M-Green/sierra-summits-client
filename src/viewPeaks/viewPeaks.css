@@ -2,13 +2,66 @@
     text-align: center;
 }
 
+.viewPeaks {
+    background-color: #d4dae0;
+    /* border: 1px solid purple; */
+    /* border-radius: 20px; */
+    max-width: 85%;
+    margin: auto;
+    margin-top: 30px;
+    min-height: 700px;
+}
+
+.viewAll {
+    font-size: 15px;
+    padding:0.45em 1.2em;
+    /* border: 2px solid #000; */
+    box-shadow: 0 2px 6px 0 #000;
+    border: none;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#FFF;
+    text-align:center;
+    transition: all 0.2s;
+    background-color: #2d7497;
+    ;
+}
+
+
+.viewAll:hover {
+    background-color: #75A5BD;
+    color: white;
+}
+
+#viewPeaksHeader {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: black;
+    text-shadow: 3px 3px 4px #FFF;
+}
+
 #searchByName {
     margin-bottom: 50px;
 }
 
 #filters {
-    border: 2px solid white;
-    max-width: 50%;
-    margin: auto
+    border-bottom: 1px solid black;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+.filterInputs {
+    margin: 5px;
+}
+
+#filterBox {
+    color: #fff;
+    text-shadow: 2px 2px 2px black;
+    text-transform: uppercase;
 }
 
