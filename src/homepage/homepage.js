@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import mountains from '../images/mountains.jpg'
 import { Link } from 'react-router-dom'
 import './homepage.css'
 
@@ -8,7 +7,6 @@ class Homepage extends Component {
     render() {
         return (
             <div>
-                {/* <img src={mountains} alt="" id="homeImg" /> */}
                 <div  className="homepageText">
                     <p>Sierra Summits is an online summit register.</p>
                     <p>It allows users to access information on the 247 SPS peaks throughout the Sierra Nevada mountain range.</p>
