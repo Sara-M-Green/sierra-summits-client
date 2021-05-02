@@ -26,7 +26,7 @@ h3 {
 .thumbTitle {
    color: black;
    font-size: 22px;
-   text-shadow: 2px 2px 4px #75A5BD;
+   text-shadow: 2px 2px 4px grey;
    text-transform: uppercase;
    /* text-decoration: underline; */
 }
@@ -38,7 +38,8 @@ h3 {
 
 @media all and (min-width: 800px) {
     .thumbnail {
-        max-width: 350px;
+        width: 250px;
+        margin: 20px;
     }
 }
 

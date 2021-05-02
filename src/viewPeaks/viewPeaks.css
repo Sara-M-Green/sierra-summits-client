@@ -1,9 +1,17 @@
+body .viewPeaksOuter {
+    background-image: linear-gradient(to left top, #9d84c1, #8f8cc6, #8293c8, #799ac7, #749fc4, #82a8c8, #90b0cc, #9eb9d0, #bac9dc, #d4dae8, #ebecf3, #ffffff);
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
 .center {
     text-align: center;
 }
 
 .viewPeaks {
-    background-color: #d4dae0;
+    background-color: rgba(255, 255, 255, 0.6);
     max-width: 85%;
     margin: auto;
     margin-top: 30px;
@@ -14,8 +22,7 @@
 .viewAll {
     font-size: 15px;
     padding:0.45em 1.2em;
-    /* border: 2px solid #000; */
-    box-shadow: 0 2px 6px 0 #000;
+    
     border: none;
     margin: 20px auto;
     border-radius: 20px;
@@ -31,15 +38,47 @@
 }
 
 .viewAll:hover {
-    background-color: #75A5BD;
+    /* background-color: #75A5BD; */
+    box-shadow: 0 2px 6px 0 #000;
+    background-color: #2d7497;
     color: white;
+}
+
+.lastFilter {
+    padding-bottom: 10px;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    margin: auto;
+    padding-bottom: 20px;
+
+}
+
+.submit {
+    max-width: 80px;
+    margin: auto;
+    margin-top: 5px;
+    background-color: #2d7497;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border: none;
+    padding: 5px 10px;
+}
+
+.submit:hover {
+    box-shadow: 0 2px 6px 0 #000;
+
 }
 
 #viewPeaksHeader {
     margin-top: 10px;
     margin-bottom: 5px;
     color: black;
-    text-shadow: 3px 3px 4px #FFF;
+    text-shadow: 3px 3px 4px whitesmoke;
 }
 
 #searchByName {
@@ -47,7 +86,7 @@
 }
 
 #filters {
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     max-width: 90%;
     margin: auto;
     margin-bottom: 20px;
@@ -67,6 +106,14 @@
 }
 
 @media all and (min-width: 800px) {
+
+    .thumbnailContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
     #filters {
         max-width: 500px;
     }

@@ -278,94 +278,100 @@ class ViewPeaks extends React.Component {
 
         
         return (
-            <div className="viewPeaks">
-                <h1 id="viewPeaksHeader">SPS Peak Finder</h1>
-                <p>The current peak list is a sample set of 54 peaks in the Sierra Nevada Mountain Range</p>
-                <button className="center viewAll" onClick={this.handleViewAll}>View All Peaks</button>
-                    <div className="center" id="searchByName">
-                        <form onSubmit={e => this.handleSubmit(e)}>
-                            <label htmlFor="search">Search for peak by name:</label>
-                            <input 
-                                type="text" 
-                                id="search" 
-                                name="search"
-                                value={this.state.search}
-                                onChange={e => this.setSearch(e.target.value)}
-                            /> 
-                            <input type="submit" />  
-                        </form>
-                        <div className="center">
-                            <label htmlFor="sort">Sort:</label>
-                            <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
-                            <option value="">None</option>
-                            <option value="peakname">Name</option>
-                            <option value="mileage">Mileage</option>
-                            <option value="gain">Elevation Gain</option>
+            <div className="viewPeaksOuter">
+                <div className="viewPeaks">
+                    <h1 id="viewPeaksHeader">SPS Peak Finder</h1>
+                    <p>The current peak list is a sample set of 54 peaks in the Sierra Nevada Mountain Range</p>
+                    <button className="center viewAll" onClick={this.handleViewAll}>View All Peaks</button>
+                        <div className="center" id="searchByName">
+                            <form className="searchForm" onSubmit={e => this.handleSubmit(e)}>
+                                <label htmlFor="search">Search for peak by name:</label>
+                                <input 
+                                    type="text" 
+                                    id="search" 
+                                    name="search"
+                                    value={this.state.search}
+                                    onChange={e => this.setSearch(e.target.value)}
+                                /> 
+                                <input className="submit" type="submit" />  
+                            </form>
+                            
+                        </div>
+
+
+                    <section className="center" id="filters" >
+                        <h2 id="filterBox">Filter Peaks</h2>
+                        <div>
+                            <label className="filterInputs">Filter By Max Mileage To Summit</label>
+                        
+                            <select className="filterInputs" name="mileage" onChange={e => this.filterMileage(e)}>
+                                <option value="">Miles</option>
+                                <option value="2">2 miles</option>
+                                <option value="2.5">2.5 miles</option>
+                                <option value="3">3 miles</option>
+                                <option value="3.5">3.5 miles</option>
+                                <option value="4">4 miles</option>
+                                <option value="4.5">4.5 miles</option>
+                                <option value="5">5 miles</option>
+                                <option value="5.5">5.5 miles</option>
+                                <option value="6">6 miles</option>
                             </select>
                         </div>
-                    </div>
 
-
-                <section className="center" id="filters" >
-                    <h2 id="filterBox">Filter Peaks</h2>
-                    <div>
-                        <label className="filterInputs">Filter By Max Mileage To Summit</label>
-                      
-                        <select className="filterInputs" name="mileage" onChange={e => this.filterMileage(e)}>
-                            <option value="">Miles</option>
-                            <option value="2">2 miles</option>
-                            <option value="2.5">2.5 miles</option>
-                            <option value="3">3 miles</option>
-                            <option value="3.5">3.5 miles</option>
-                            <option value="4">4 miles</option>
-                            <option value="4.5">4.5 miles</option>
-                            <option value="5">5 miles</option>
-                            <option value="5.5">5.5 miles</option>
-                            <option value="6">6 miles</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="filterInputs">Filter By Max Elevation Gain</label>
-                        <select className="filterInputs" name="gain" onChange={e => this.filterGain(e)}>
-                            <option value="">Gain</option>
-                            <option value="1000">1000 ft</option>
-                            <option value="1500">1500 ft</option>
-                            <option value="2000">2000 ft</option>
-                            <option value="2500">2500 ft</option>
-                            <option value="3000">3000 ft</option>
-                            <option value="3500">3500 ft</option>
-                            <option value="4000">4000 ft</option>
-                            <option value="4500">4500 ft</option>
-                            <option value="5000">5000 ft</option>
-                            <option value="5500">5500 ft</option>
-                            <option value="6000">6000 ft</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="filterInputs">Filter By Class</label>
-                            <select className="filterInputs" name="class" onChange={e => this.filterClass(e)}>
-                                <option value="">Class</option>
-                                <option value="1">Class 1</option>
-                                <option value="2">Class 2</option>
-                                <option value="3">Class 3</option>
-                                <option value="4">Class 4</option>
-                                <option value="5">Class 5</option>
+                        <div>
+                            <label className="filterInputs">Filter By Max Elevation Gain</label>
+                            <select className="filterInputs" name="gain" onChange={e => this.filterGain(e)}>
+                                <option value="">Gain</option>
+                                <option value="1000">1000 ft</option>
+                                <option value="1500">1500 ft</option>
+                                <option value="2000">2000 ft</option>
+                                <option value="2500">2500 ft</option>
+                                <option value="3000">3000 ft</option>
+                                <option value="3500">3500 ft</option>
+                                <option value="4000">4000 ft</option>
+                                <option value="4500">4500 ft</option>
+                                <option value="5000">5000 ft</option>
+                                <option value="5500">5500 ft</option>
+                                <option value="6000">6000 ft</option>
                             </select>
+                        </div>
+
+                        <div className="lastFilter">
+                            <label className="filterInputs">Filter By Class</label>
+                                <select className="filterInputs" name="class" onChange={e => this.filterClass(e)}>
+                                    <option value="">Class</option>
+                                    <option value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                    <option value="4">Class 4</option>
+                                    <option value="5">Class 5</option>
+                                </select>
+                        </div>
+
+
+                        
+
+                    </section>
+
+                    <div className="center">
+                        <label htmlFor="sort">Sort:</label>
+                        <select id="sort" name="sort" onChange={e => this.setSort(e.target.value)}>
+                        <option value="">None</option>
+                        <option value="peakname">Name</option>
+                        <option value="mileage">Mileage</option>
+                        <option value="gain">Elevation Gain</option>
+                        </select>
                     </div>
+                    
+                    <div className="appError">{ this.state.error }</div>
 
-                </section>
-                
-                <div className="appError">{ this.state.error }</div>
-
-                <div className="thumbnailContainer">
-                    {peaks}    
+                    <div className="thumbnailContainer">
+                        {peaks}    
+                    </div>
+                    
+                    
                 </div>
-                
-                
             </div>
-            
         )
     }
 }
