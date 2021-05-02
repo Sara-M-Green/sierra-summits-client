@@ -309,10 +309,10 @@ class ViewPeaks extends React.Component {
                 <section className="center" id="filters" >
                     <h2 id="filterBox">Filter Peaks</h2>
                     <div>
-                        <label className="filterInputs">Filter By Max Mileage To Summit (One Way)</label>
+                        <label className="filterInputs">Filter By Max Mileage To Summit</label>
                       
                         <select className="filterInputs" name="mileage" onChange={e => this.filterMileage(e)}>
-                            <option value=""> </option>
+                            <option value="">Miles</option>
                             <option value="2">2 miles</option>
                             <option value="2.5">2.5 miles</option>
                             <option value="3">3 miles</option>
@@ -328,7 +328,7 @@ class ViewPeaks extends React.Component {
                     <div>
                         <label className="filterInputs">Filter By Max Elevation Gain</label>
                         <select className="filterInputs" name="gain" onChange={e => this.filterGain(e)}>
-                            <option value=""> </option>
+                            <option value="">Gain</option>
                             <option value="1000">1000 ft</option>
                             <option value="1500">1500 ft</option>
                             <option value="2000">2000 ft</option>
@@ -346,7 +346,7 @@ class ViewPeaks extends React.Component {
                     <div>
                         <label className="filterInputs">Filter By Class</label>
                             <select className="filterInputs" name="class" onChange={e => this.filterClass(e)}>
-                                <option value="">   </option>
+                                <option value="">Class</option>
                                 <option value="1">Class 1</option>
                                 <option value="2">Class 2</option>
                                 <option value="3">Class 3</option>
