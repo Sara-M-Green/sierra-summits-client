@@ -6,3 +6,11 @@
 .addComment {
     text-align: center;
 }
+
+body .addCommentContainer {
+    background-image: linear-gradient(to left top, #9d84c1, #8f8cc6, #8293c8, #799ac7, #749fc4, #82a8c8, #90b0cc, #9eb9d0, #bac9dc, #d4dae8, #ebecf3, #ffffff);
+    width: 100%;
+    height: 800px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}

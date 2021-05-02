@@ -73,22 +73,30 @@ class Peak extends Component {
         console.log(this.props.match.params.id)
         console.log(this.state.peakData)
         return (
-            <div>
-                {/* <h1>{this.props.store[ID].peakname}</h1> */}
-                <h1>{this.state.peakData.peakname}</h1>
-                <div className="peakLinks">
-                    <Link to="/api/peaks" className="peakLinks">Back</Link>
+            <div className="peakDetails">
+                <div className=" peakDetailsContainer">
+                    <h1 className="peaksHeader">{this.state.peakData.peakname}</h1>
+                    <p>{this.state.peakData.latlong}</p>
+                    <div className="peakLinks">
+                        <Link to="/api/peaks" className="peakLinks">Back</Link>
+                    </div>
+
+                    <div>
+                        <img src={this.state.peakData.image} alt="peak" />
+                        <p>Elevation: {this.state.peakData.summit} ft</p>
+                        
+                        <p>Trailhead: {this.state.peakData.trailhead}</p>
+                        <p className="info">{this.state.peakData.overview}</p>
+                        <p>{this.state.peakData.route}</p>
+
+                    </div>
+                
+
+                
+                    <Register store={this.props.store} id={this.props.match.params.id} comments={this.state.comments}/>
+            
                 </div>
-                <img src={this.state.peakData.image} alt="peak" />
-                <p>Elevation: {this.state.peakData.summit} ft</p>
-                <p>{this.state.peakData.latlong}</p>
-                <p>Trailhead: {this.state.peakData.trailhead}</p>
-                <p>{this.state.peakData.overview}</p>
-                <p>{this.state.peakData.route}</p>
-                <div className="peakLinks">
-                    {/* <Link to={`${this.props.match.params.id}/comment`} className="peakLinks" >Sign Summit Register</Link> */}
-                </div>
-                <Register store={this.props.store} id={this.props.match.params.id} comments={this.state.comments}/>
+            
             </div>
         )
     }

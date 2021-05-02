@@ -18,23 +18,23 @@ button {
     text-align: center;
     font-size: 18px;
     padding:0.45em 1.2em;
-    border: 2px solid #FEFAE0;
+    border: 2px solid #FFF;
     margin: 20px auto;
     border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     font-weight:400;
-    color:#FEFAE0;
+    color:#FFF;
     text-align:center;
     transition: all 0.2s;
-    background-color: #75A5BD;
+    background-color: #2d7497;
 }
 
 button:hover {
-    color: #FEFAE0;
-    background-color:#A0C1D1; 
+    color: #FFF;
     font-weight: 400;   
+    box-shadow: 0 2px 6px 0 #000;
 }
 
 .Link {

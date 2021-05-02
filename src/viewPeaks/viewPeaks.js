@@ -280,7 +280,7 @@ class ViewPeaks extends React.Component {
         return (
             <div className="viewPeaksOuter">
                 <div className="viewPeaks">
-                    <h1 id="viewPeaksHeader">SPS Peak Finder</h1>
+                    <h1 className="peaksHeader">SPS Peak Finder</h1>
                     <p>The current peak list is a sample set of 54 peaks in the Sierra Nevada Mountain Range</p>
                     <button className="center viewAll" onClick={this.handleViewAll}>View All Peaks</button>
                         <div className="center" id="searchByName">

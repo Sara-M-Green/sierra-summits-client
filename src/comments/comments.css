@@ -1,8 +1,12 @@
 .comment {
-    border-bottom: 1px solid #75A5BD;
+    border-bottom: 2px solid #75A5BD;
     text-align: left;
+    padding: 15px;
 }
 
 .comment-info {
     text-align: left;
+    background: white;
+    margin: 0;
+
 }

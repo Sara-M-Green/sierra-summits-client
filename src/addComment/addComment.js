@@ -77,34 +77,38 @@ class AddComment extends Component {
         // const commentError = this.validateComment()
 
         return (
-            <div className="addComment">
-                <form onSubmit={this.handleSubmit}>
-                    <h3>Sign {this.props.store[ID].peakname} Summit Register</h3>
-                    <label htmlFor="usernameInput" className="formElement">Name: </label>
-                    <input 
-                        type="text"
-                        id="usernameInput"
-                        name="usernameInput"
-                        onChange={e => this.updateUsername(e.target.value)}
-                        aria-label="usernameInput"
-                        aria-required="true"
-                    />
+            <div className="addCommentContainer">
+                <div className="addComment">
+                    <form onSubmit={this.handleSubmit}>
+                        <h3>Sign {this.props.store[ID].peakname} Summit Register</h3>
+                        <div className="peakLinks">
+                            <Link to={`/api/peaks/${ID + 1}`}className="peakLinks">Back</Link>
+                        </div>
+                        
+                        <label htmlFor="usernameInput" className="formElement">Name: </label>
+                        <input 
+                            type="text"
+                            id="usernameInput"
+                            name="usernameInput"
+                            onChange={e => this.updateUsername(e.target.value)}
+                            aria-label="usernameInput"
+                            aria-required="true"
+                        />
+                        
+                        <label htmlFor="commentInput" className="formElement">Comment:</label>
+                        <textarea
+                            id="commentInput"
+                            name="commentInput"
+                            onChange={e => this.updateComment(e.target.value)}
+                            aria-label="commentInput"
+                            aria-required="true"
+                        ></textarea>
+
+                        <input type="submit" className="formElement submit" />
+                    </form>
+
+                
                     
-                    <label htmlFor="commentInput" className="formElement">Comment:</label>
-                    <textarea
-                        id="commentInput"
-                        name="commentInput"
-                        onChange={e => this.updateComment(e.target.value)}
-                        aria-label="commentInput"
-                        aria-required="true"
-                    ></textarea>
-
-                    <input type="submit" className="formElement" />
-                </form>
-
-            
-                <div className="peakLinks">
-                    <Link to={`/api/peaks/${ID + 1}`}className="peakLinks">Back</Link>
                 </div>
             </div>
         )

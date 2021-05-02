@@ -6,7 +6,7 @@ h3 {
 .thumbnail {
     box-shadow: 0 4px 8px 0 #000;
     transition: 0.3s;
-    max-width: 80%;
+    max-width: 300px;
     min-height: 150px;
     background: white;
     color: #232C33;

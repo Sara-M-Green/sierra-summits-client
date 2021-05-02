@@ -13,7 +13,7 @@ class Homepage extends Component {
                     <p>Users can sort and filter peaks based on milage, elevation or class.</p>
                     <p>After summiting a peak, users can sign the online summit register or leave comments for other users on trail conditions.</p>
                     <Link className='Link' to='/api/peaks'>
-                        <button>Adventure Awaits!</button>
+                        <button className="btn">Adventure Awaits!</button>
                     </Link>    
                 </div>
                 

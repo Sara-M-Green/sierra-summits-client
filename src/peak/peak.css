@@ -1,11 +1,50 @@
+body .peakDetails {
+  background-image: linear-gradient(to left top, #9d84c1, #8f8cc6, #8293c8, #799ac7, #749fc4, #82a8c8, #90b0cc, #9eb9d0, #bac9dc, #d4dae8, #ebecf3, #ffffff);
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.info {
+  margin-top: 20px;
+}
 .peakLinks {
-    text-align: center;
-    color: white;
+  font-size: 15px;
+  padding: 9px;
+  max-width: 100px;
+  border: none;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFF;
+  text-align:center;
+  transition: all 0.2s;
+  background-color: #2d7497;
+  text-transform: uppercase;
+}
+
+/* .peakLinks:hover {
+  box-shadow: 0 2px 6px 0 #000;
+  width: 100px;
+} */
+
+.peakDetailsContainer {
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 85%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 25px;
+  opacity: 0.9;
 }
 
 img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 75%;
 }

@@ -14,19 +14,24 @@ class Register extends Component {
     render() {
         return (
             <div className="register">
-                <h2>SUMMIT REGISTER</h2>
-                <div className="summitreg">
-                <Link to={`${this.props.id}/comment`} id="peakLinks" >Sign Summit Register</Link>
+                <div className="registerContent">
+                    <h2>SUMMIT REGISTER</h2>
 
-                </div>
-                {this.props.comments.map(comment => (
-                    <Comments 
-                        key={comment.id}
-                        date={comment.date_commented}
-                        name={comment.username}
-                        comment={comment.comment}
-                    />
-                ))}
+                    <div className="center signBtn">
+                        <Link to={`${this.props.id}/comment`} className="peakLinks" >Sign!</Link>
+                    </div>
+                    
+
+
+                    {this.props.comments.map(comment => (
+                        <Comments 
+                            key={comment.id}
+                            date={comment.date_commented}
+                            name={comment.username}
+                            comment={comment.comment}
+                        />
+                    ))}
+                </div>    
             </div>
         )
     }
