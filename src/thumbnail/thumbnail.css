@@ -31,10 +31,10 @@ h3 {
    /* text-decoration: underline; */
 }
 
-p {
+/* p {
     margin: 5px;
     font-size: 17px;
-}
+} */
 
 @media all and (min-width: 800px) {
     .thumbnail {
