@@ -70,8 +70,6 @@ class Peak extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.id)
-        console.log(this.state.peakData)
         return (
             <div className="peakDetails">
                 <div className=" peakDetailsContainer">
