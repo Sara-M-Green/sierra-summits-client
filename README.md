@@ -15,3 +15,5 @@ Each peak also contains an online summit register. Similar to a physical summit 
 ### Screenshots
 
 #### Landing Page
+
+![Home Page Screen Shot](./src/images/landingPage_screenshot.png?raw=true "Home Page")
