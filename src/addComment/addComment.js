@@ -50,7 +50,7 @@ class AddComment extends Component {
         
     handleSubmit = e => {
         const ID = (this.state.peakData.id)
-        console.log(ID)
+        
         e.preventDefault()
         const newComment = {
             username: e.target['usernameInput'].value,
@@ -72,7 +72,6 @@ class AddComment extends Component {
             return res.json()
         })
         .then(comment => {
-            console.log(comment)
             this.props.history.push(`/peaks/${ID}`)
         })
         .catch(error => {
@@ -88,26 +87,8 @@ class AddComment extends Component {
         this.setState({comment: { value: comment, touched: true}})
     }
 
-    // validateUsername() {
-    //     const username = this.state.username.value.trim();
-    //     if (username.length === 0) {
-    //         return "Name required"
-    //     }
-    // }
-
-    // validateComment() {
-    //     const comment = this.state.comment.value.trim();
-    //     if (comment.length === 0) {
-    //         return "Comment required"
-    //     }
-    // }
     render() {
         const ID = (this.state.peakData.id )
-        console.log(ID)
-
-        // const usernameError = this.validateUsername()
-        // const commentError = this.validateComment()
-
 
         return (
             <div className="addCommentContainer">

@@ -89,12 +89,9 @@ class Peak extends Component {
 
                     </div>
                 
-
-                
                     <Register store={this.props.store} id={this.props.match.params.id} comments={this.state.comments}/>
             
-                </div>
-            
+                </div>           
             </div>
         )
     }

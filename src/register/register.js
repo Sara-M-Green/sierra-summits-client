@@ -20,7 +20,6 @@ class Register extends Component {
                     <div className="center signBtn">
                         <Link to={`${this.props.id}/comment`} className="sign" >Sign!</Link>
                     </div>
-                    
 
 
                     {this.props.comments.map(comment => (
