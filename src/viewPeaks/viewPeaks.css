@@ -60,12 +60,13 @@ body .viewPeaksOuter {
     max-width: 80px;
     margin: auto;
     margin-top: 5px;
-    background-color: #f1f1f1;
+    background-color: #e0e0e0;
     color: black;
     text-transform: uppercase;
     border-radius: 8px;
     border: none;
     padding: 5px 10px;
+    box-shadow: 0 2px 5px 0 #000;
 }
 
 .thumbnailContainer {
@@ -73,7 +74,7 @@ body .viewPeaksOuter {
 }
 
 .submit:hover {
-    box-shadow: 0 2px 5px 0 #000;
+    box-shadow: 0 2px 8px 0 #000;
 
 }
 

@@ -78,7 +78,7 @@ class Peak extends Component {
                     <h1 className="peaksHeader">{this.state.peakData.peakname}</h1>
                     <p>{this.state.peakData.latlong}</p>
                     <div className="peakLinks">
-                        <Link to="/api/peaks" className="peakLinks">Back</Link>
+                        <Link to="/api/peaks" className="back" >Back</Link>
                     </div>
 
                     <div>
@@ -86,8 +86,8 @@ class Peak extends Component {
                         <p>Elevation: {this.state.peakData.summit} ft</p>
                         
                         <p>Trailhead: {this.state.peakData.trailhead}</p>
-                        <p className="info">{this.state.peakData.overview}</p>
-                        <p>{this.state.peakData.route}</p>
+                        <p className="info pp">{this.state.peakData.overview}</p>
+                        <p className="pp">{this.state.peakData.route}</p>
 
                     </div>
                 

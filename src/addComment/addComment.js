@@ -80,9 +80,9 @@ class AddComment extends Component {
             <div className="addCommentContainer">
                 <div className="addComment">
                     <form onSubmit={this.handleSubmit}>
-                        <h3>Sign {this.props.store[ID].peakname} Summit Register</h3>
+                        <h3 className="thumbTitle">Sign {this.props.store[ID].peakname} Summit Register</h3>
                         <div className="peakLinks">
-                            <Link to={`/api/peaks/${ID + 1}`}className="peakLinks">Back</Link>
+                            <Link to={`/api/peaks/${ID + 1}`}className="back">Back</Link>
                         </div>
                         
                         <label htmlFor="usernameInput" className="formElement">Name: </label>
@@ -106,9 +106,6 @@ class AddComment extends Component {
 
                         <input type="submit" className="formElement submit" />
                     </form>
-
-                
-                    
                 </div>
             </div>
         )

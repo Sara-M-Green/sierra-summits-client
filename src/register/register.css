@@ -11,6 +11,29 @@ h2 {
     text-align: center;
 }
 
+.sign {
+    font-size: 15px;
+    padding: 9px;
+    max-width: 100px;
+    border: none;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#FFF;
+    text-align:center;
+    transition: all 0.2s;
+    background-color: #2d7497;
+    text-transform: uppercase;
+    box-shadow: 0 2px 3px 0 #000;
+}
+
+.sign:hover {
+    box-shadow: 0 2px 6px 0 #000;
+}
+
 .signBtn {
     height: 40px;
     border-bottom: 2px solid #75A5BD;

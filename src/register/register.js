@@ -18,7 +18,7 @@ class Register extends Component {
                     <h2>SUMMIT REGISTER</h2>
 
                     <div className="center signBtn">
-                        <Link to={`${this.props.id}/comment`} className="peakLinks" >Sign!</Link>
+                        <Link to={`${this.props.id}/comment`} className="sign" >Sign!</Link>
                     </div>
                     
 
