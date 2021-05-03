@@ -7,7 +7,7 @@ class Thumbnail extends Component {
         return (
             <div className="thumbnail">
                 <div className="thumbnail-inner">
-                    <Link to={`/api/peaks/${this.props.id}`} className="Link thumbTitle"><h3>{this.props.peakname}</h3></Link>
+                    <Link to={`/peaks/${this.props.id}`} className="Link thumbTitle"><h3>{this.props.peakname}</h3></Link>
                     <p>{this.props.miles} Miles - One Way</p>
                     <p>Class {this.props.class}</p>
                     <p>Elevation Gain: {this.props.elevation_gain} ft</p>

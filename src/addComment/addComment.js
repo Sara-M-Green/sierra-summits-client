@@ -42,7 +42,7 @@ class AddComment extends Component {
             return res.json()
         })
         .then(comment => {
-            this.props.history.push(`/api/peaks/${comment.peak_id}`)
+            this.props.history.push(`/peaks/${comment.peak_id}`)
         })
         .catch(error => {
             console.error({error})
@@ -82,7 +82,7 @@ class AddComment extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <h3 className="thumbTitle">Sign {this.props.store[ID].peakname} Summit Register</h3>
                         <div className="peakLinks">
-                            <Link to={`/api/peaks/${ID + 1}`}className="back">Back</Link>
+                            <Link to={`/peaks/${ID + 1}`}className="back">Back</Link>
                         </div>
                         
                         <label htmlFor="usernameInput" className="formElement">Name: </label>

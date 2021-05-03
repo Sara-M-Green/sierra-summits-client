@@ -76,7 +76,7 @@ class Peak extends Component {
                     <h1 className="peaksHeader">{this.state.peakData.peakname}</h1>
                     <p>{this.state.peakData.latlong}</p>
                     <div className="peakLinks">
-                        <Link to="/api/peaks" className="back" >Back</Link>
+                        <Link to="/peaks" className="back" >Back</Link>
                     </div>
 
                     <div>
