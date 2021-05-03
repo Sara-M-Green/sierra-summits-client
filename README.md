@@ -21,7 +21,7 @@ Each peak also contains an online summit register. Similar to a physical summit 
 
 ### Peak Filters
 
-![Peak Filters Screen Shot](./src/images/peakFilter_screenshot.png?raw=true "Filter Peaks Page")
+![Peak Filters Screen Shot](./src/images/peaksFilter_screenshot.png?raw=true "Filter Peaks Page")
 
 ### Peak Thumbnails
 
