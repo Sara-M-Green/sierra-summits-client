@@ -224,7 +224,7 @@ class ViewPeaks extends React.Component {
                 let filteredPeaks = this.state.filterablePeaks.filter(p => {
                     return (p.mileage <= this.state.mileage) && (p.class[0].includes(this.state.class.toString()))
                 })
-
+                
                 this.setState({
                     peaks: filteredPeaks
                 })
