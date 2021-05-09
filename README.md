@@ -4,6 +4,10 @@
 
 https://sierra-summits.vercel.app/
 
+## API Repo Link
+
+https://github.com/Sara-M-Green/sierra-summits-api
+
 ## Summary
 
 Sierra Summits is a web application designed for peak baggers of the Sierra Nevada Mountain range. The Sierra Peaks Section (SPS) has named 247 peaks throughout the range. This app allows users to find and filter peaks based on mileage, elevation gain, and/or class.
